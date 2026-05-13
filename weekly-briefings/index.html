@@ -1,35 +1,202 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>
-    Weekly Briefings
-  </title>
-
+  <title>Weekly Briefings - Institute for AI Economics</title>
   <link rel="stylesheet" href="../assets/site.css" />
+  
+<style>
+.weekly-shell * {
+  box-sizing: border-box;
+}
+
+.weekly-top {
+  background: #ffffff;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.weekly-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.weekly-header-row {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weekly-logo {
+  color: #082b57;
+  font-weight: 900;
+  text-decoration: none;
+  line-height: 1.05;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.weekly-contact {
+  background: #55aee6;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 18px 28px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.weekly-nav {
+  background: #eef3f8;
+}
+
+.weekly-nav-inner {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.weekly-nav a {
+  color: #13213a;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.weekly-hero {
+  background: #142f56;
+  color: #ffffff;
+  padding: 92px 0 96px;
+}
+
+.weekly-eyebrow {
+  display: inline-block;
+  background: #55aee6;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.weekly-hero h1 {
+  max-width: 980px;
+  margin: 28px 0 22px;
+  font-size: clamp(48px, 7vw, 86px);
+  line-height: 0.95;
+  color: #ffffff;
+}
+
+.weekly-hero p {
+  max-width: 900px;
+  font-size: 21px;
+  line-height: 1.55;
+  color: #ffffff;
+}
+
+.weekly-section {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.weekly-section h2 {
+  font-size: 42px;
+  margin: 0 0 32px;
+  color: #0f172a;
+}
+
+.weekly-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+.weekly-card {
+  border: 1px solid #d9e3ef;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 32px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+}
+
+.weekly-card h3 {
+  color: #082b57;
+  font-size: 26px;
+  line-height: 1.25;
+  margin: 18px 0;
+}
+
+.weekly-card h4 {
+  color: #0f172a;
+  font-size: 20px;
+  margin-top: 28px;
+}
+
+.weekly-card p,
+.weekly-card li {
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.weekly-card a {
+  color: #0b5cab;
+  font-weight: 800;
+}
+
+.weekly-footer {
+  background: #f4f7fb;
+  border-top: 1px solid #e2e8f0;
+  padding: 42px 0;
+  color: #0f172a;
+}
+
+@media (max-width: 760px) {
+  .weekly-header-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 0;
+  }
+
+  .weekly-nav-inner {
+    gap: 16px;
+    padding: 18px 28px;
+  }
+
+  .weekly-contact {
+    padding: 12px 18px;
+  }
+
+  .weekly-hero {
+    padding: 64px 0;
+  }
+
+  .weekly-card {
+    padding: 24px;
+  }
+}
+</style>
+
 </head>
 
-<body>
-
-
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="logo" href="../index.html">
+<body class="weekly-shell">
+  
+<header class="weekly-top">
+  <div class="weekly-container weekly-header-row">
+    <a class="weekly-logo" href="../index.html">
       INSTITUTE FOR<br />AI ECONOMICS
     </a>
-
-    <a class="button" href="../contact.html">
-      Contact
-    </a>
+    <a class="weekly-contact" href="../contact.html">Contact</a>
   </div>
 </header>
 
-<nav class="site-nav">
-  <div class="container nav-inner">
+<nav class="weekly-nav">
+  <div class="weekly-container weekly-nav-inner">
     <a href="../index.html">Home</a>
     <a href="../research.html">Research</a>
     <a href="./index.html">Weekly Briefings</a>
@@ -41,77 +208,44 @@
 </nav>
 
 
-<main>
+  <main>
+    <section class="weekly-hero">
+      <div class="weekly-container">
+        <p class="weekly-eyebrow">Weekly briefings</p>
+        <h1>Weekly AI economics intelligence.</h1>
+        <p>
+          Every week, the Institute scans AI research, infrastructure,
+          compute, governance, institutions, chips, energy, and distribution.
+        </p>
+      </div>
+    </section>
 
-<section class="hero">
-  <div class="container">
-
-    <p class="eyebrow">
-      Weekly briefings
-    </p>
-
-    <h1>
-      Weekly AI economics intelligence.
-    </h1>
-
-    <p>
-      Every week, the Institute scans AI research,
-      infrastructure, compute, governance,
-      institutions, chips, and distribution.
-    </p>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-
-    <h2>
-      Briefing archive
-    </h2>
-
-    <div class="briefing-grid">
-
-      
-<article class="card briefing-card">
-
-  <p class="eyebrow">
-    Weekly briefing
-  </p>
-
-  <h3>
-    <a href="./2026-05-13.html">
-      AI Economics Weekly Briefing
-    </a>
-  </h3>
-
+    <section class="weekly-section">
+      <div class="weekly-container">
+        <h2>Briefing archive</h2>
+        <div class="weekly-grid">
+          
+<article class="weekly-card">
+  <p class="weekly-eyebrow">Weekly briefing</p>
+  <h3><a href="./2026-05-13.html">AI Economics Weekly Briefing</a></h3>
+  <p>2026-05-13</p>
   <p>
-    2026-05-13
+    Weekly intelligence across AI infrastructure, compute, chips,
+    governance, institutions, energy, and distribution.
   </p>
-
-  <p>
-    Weekly intelligence across AI infrastructure,
-    compute, chips, governance, institutions,
-    and distribution.
-  </p>
-
 </article>
 
+        </div>
+      </div>
+    </section>
+  </main>
 
-    </div>
-
-  </div>
-</section>
-
-</main>
-
-
-<footer class="site-footer">
-  <div class="container">
+  
+<footer class="weekly-footer">
+  <div class="weekly-container">
     <p>© Institute for AI Economics 2026</p>
   </div>
 </footer>
-
 
 </body>
 </html>

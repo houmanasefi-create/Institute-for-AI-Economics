@@ -1,32 +1,202 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Economics Weekly Briefing</title>
-
+  <title>AI Economics Weekly Briefing - May 13, 2026</title>
   <link rel="stylesheet" href="../assets/site.css" />
+  
+<style>
+.weekly-shell * {
+  box-sizing: border-box;
+}
+
+.weekly-top {
+  background: #ffffff;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.weekly-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.weekly-header-row {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weekly-logo {
+  color: #082b57;
+  font-weight: 900;
+  text-decoration: none;
+  line-height: 1.05;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+.weekly-contact {
+  background: #55aee6;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 18px 28px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.weekly-nav {
+  background: #eef3f8;
+}
+
+.weekly-nav-inner {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.weekly-nav a {
+  color: #13213a;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.weekly-hero {
+  background: #142f56;
+  color: #ffffff;
+  padding: 92px 0 96px;
+}
+
+.weekly-eyebrow {
+  display: inline-block;
+  background: #55aee6;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.weekly-hero h1 {
+  max-width: 980px;
+  margin: 28px 0 22px;
+  font-size: clamp(48px, 7vw, 86px);
+  line-height: 0.95;
+  color: #ffffff;
+}
+
+.weekly-hero p {
+  max-width: 900px;
+  font-size: 21px;
+  line-height: 1.55;
+  color: #ffffff;
+}
+
+.weekly-section {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.weekly-section h2 {
+  font-size: 42px;
+  margin: 0 0 32px;
+  color: #0f172a;
+}
+
+.weekly-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+.weekly-card {
+  border: 1px solid #d9e3ef;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 32px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.06);
+}
+
+.weekly-card h3 {
+  color: #082b57;
+  font-size: 26px;
+  line-height: 1.25;
+  margin: 18px 0;
+}
+
+.weekly-card h4 {
+  color: #0f172a;
+  font-size: 20px;
+  margin-top: 28px;
+}
+
+.weekly-card p,
+.weekly-card li {
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.weekly-card a {
+  color: #0b5cab;
+  font-weight: 800;
+}
+
+.weekly-footer {
+  background: #f4f7fb;
+  border-top: 1px solid #e2e8f0;
+  padding: 42px 0;
+  color: #0f172a;
+}
+
+@media (max-width: 760px) {
+  .weekly-header-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 0;
+  }
+
+  .weekly-nav-inner {
+    gap: 16px;
+    padding: 18px 28px;
+  }
+
+  .weekly-contact {
+    padding: 12px 18px;
+  }
+
+  .weekly-hero {
+    padding: 64px 0;
+  }
+
+  .weekly-card {
+    padding: 24px;
+  }
+}
+</style>
+
 </head>
 
-<body>
-
-
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="logo" href="../index.html">
+<body class="weekly-shell">
+  
+<header class="weekly-top">
+  <div class="weekly-container weekly-header-row">
+    <a class="weekly-logo" href="../index.html">
       INSTITUTE FOR<br />AI ECONOMICS
     </a>
-
-    <a class="button" href="../contact.html">
-      Contact
-    </a>
+    <a class="weekly-contact" href="../contact.html">Contact</a>
   </div>
 </header>
 
-<nav class="site-nav">
-  <div class="container nav-inner">
+<nav class="weekly-nav">
+  <div class="weekly-container weekly-nav-inner">
     <a href="../index.html">Home</a>
     <a href="../research.html">Research</a>
     <a href="./index.html">Weekly Briefings</a>
@@ -38,292 +208,150 @@
 </nav>
 
 
-<main>
+  <main>
+    <section class="weekly-hero">
+      <div class="weekly-container">
+        <p class="weekly-eyebrow">Weekly briefing</p>
+        <h1>AI Economics Weekly Briefing</h1>
+        <p>May 13, 2026</p>
+        <p>
+          A weekly scan of AI infrastructure, compute, energy, governance,
+          institutions, chips, and distribution.
+        </p>
+      </div>
+    </section>
 
-<section class="hero">
-  <div class="container">
+    <section class="weekly-section">
+      <div class="weekly-container">
+        <h2>Top 5 research signals</h2>
+        <div class="weekly-grid">
+          
+<article class="weekly-card">
+  <p class="weekly-eyebrow">Research signal 1</p>
 
-    <p class="eyebrow">
-      Weekly briefing
-    </p>
+  <h3>Where Reliability Lives in Vision-Language Models: A Mechanistic Study of Attention, Hidden States, and Causal Circuits</h3>
 
-    <h1>
-      AI Economics Weekly Briefing
-    </h1>
-
-    <p>
-      May 13, 2026
-    </p>
-
-    <p>
-      A weekly scan of AI infrastructure,
-      compute, energy, governance,
-      institutions, chips, and distribution.
-    </p>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-
-    <h2>
-      Top 5 research signals
-    </h2>
-
-    <div class="briefing-grid">
-
-      
-<article class="card briefing-card">
-
-  <p class="eyebrow">
-    Research signal 1
-  </p>
-
-  <h3>
-    Where Reliability Lives in Vision-Language Models: A Mechanistic Study of Attention, Hidden States, and Causal Circuits
-  </h3>
-
-  <p>
-    <strong>Source:</strong> arXiv Artificial Intelligence
-  </p>
-
-  <p>
-    <strong>Area:</strong> AI research
-  </p>
-
-  <p>
-    <strong>Published:</strong>
-    May 13, 2026
-  </p>
-
-  <p>
-    <a href="https://arxiv.org/abs/2605.08200" target="_blank">
-      Read original source
-    </a>
-  </p>
+  <p><strong>Source:</strong> arXiv Artificial Intelligence</p>
+  <p><strong>Area:</strong> AI research</p>
+  <p><strong>Published:</strong> May 13, 2026</p>
+  <p><a href="https://arxiv.org/abs/2605.08200" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
+  <p>arXiv:2605.08200v1 Announce Type: new  Abstract: A pervasive intuition holds that vision-language models (VLMs) are most trustworthy when their attention maps look sharp: concentrated attention on the queried region should imply a confident, calibrated answer. We test this Attention-Confidence Assumption directly. We instrument three open-weight VLM families (LLaVA-1.5, PaliGemma, Qwen2-VL; 3-7B parameters) with a unified mechanistic pipeline -- the VLM Reliability Probe (VRP) -- that compares attention structure, generation dynamics, and hidden-state geometry against a single correctness label. Three results emerge. (i) Attention structure is a near-zero predictor of correctness (R_pb(C_k,y)=0.001, 95% CI [-0.034,0.036]; R_pb(H_s,y)=-0.012, [-0.047,0.024] on a pooled n=3,090 split), even though attention remains causally necessary for feature extraction (top-30% patch masking drops accu</p>
 
-  <p>arXiv:2605.08200v1 Announce Type: new  Abstract: A pervasive intuition holds that vision-language models (VLMs) are most trustworthy when their attention maps look sharp: concentrated attention on the queried region should imply a confident, calibrated answer. We test this Attention-Confidence Assumption directly. We instrument three open-weight VLM families (LLaVA-1.5, PaliGemma, Qwen2-VL; 3-7B parameters) with a unified mechanistic pipeline -- the VLM Reliability Probe (VRP) -- that compares attention structure, generation dynamics, and hidden-state geometry against a single correctness label. Three results emerge. (i) Attention structure is a near-zero predictor of correctness (R_pb(C_k,y</p>
+  <h4>Five core mental models</h4>
+  <ol><li>AI research is not just technical progress. It changes who controls economic capacity.</li><li>The scarce layer matters more than the visible product layer.</li><li>Infrastructure determines who can scale.</li><li>Institutions decide whether capability becomes real adoption.</li><li>Distribution decides who captures value.</li></ol>
 
-  <h4>Core mental models</h4>
+  <h4>Five places experts disagree</h4>
+  <ol><li>Scarcity versus abundance: whether AI capability becomes cheap and universal or remains concentrated through compute, chips, energy, and deployment channels.</li><li>Open versus closed systems: whether open models commoditize intelligence or closed platforms win through integration, safety, trust, and distribution.</li><li>Model quality versus infrastructure power: whether the best model wins or the owner of the hardest-to-route-around layer wins.</li><li>National sovereignty versus market procurement: whether countries need domestic AI infrastructure or reliable access to allied commercial infrastructure.</li><li>Acceleration versus governance: whether institutions should move faster or slow down to manage systemic risk.</li></ol>
 
-  <ol><li>AI research shapes economic and institutional power.</li><li>Infrastructure bottlenecks matter more than surface-level products.</li><li>Distribution controls adoption.</li><li>Governance determines scalability.</li><li>Scarcity creates leverage.</li></ol>
-
-  <h4>Expert disagreements</h4>
-
-  <ol><li>Open models versus closed platforms</li><li>Scarcity versus abundance</li><li>National AI versus global infrastructure</li><li>Model quality versus distribution power</li><li>Regulation versus acceleration</li></ol>
-
-  <h4>Deep understanding questions</h4>
-
-  <ol><li>Who controls the bottleneck?</li><li>Which layer captures value?</li><li>What becomes commoditized?</li><li>Where does dependency form?</li><li>What changes institutional power?</li></ol>
-
+  <h4>Ten questions that test deep understanding</h4>
+  <ol><li>What is the real bottleneck?</li><li>Who controls the scarce layer?</li><li>Who becomes dependent on whom?</li><li>Where does value move if models become cheaper?</li><li>Which layer is hardest to route around?</li><li>What would make this trend accelerate?</li><li>What would make this trend fail?</li><li>Which institutions gain power from this shift?</li><li>Which actors lose power if this continues?</li><li>What would a shallow analyst completely miss?</li></ol>
 </article>
 
-<article class="card briefing-card">
+<article class="weekly-card">
+  <p class="weekly-eyebrow">Research signal 2</p>
 
-  <p class="eyebrow">
-    Research signal 2
-  </p>
+  <h3>Spatial Priming Outperforms Semantic Prompting: A Grid-Based Approach to Improving LLM Accuracy on Chart Data Extraction</h3>
 
-  <h3>
-    Spatial Priming Outperforms Semantic Prompting: A Grid-Based Approach to Improving LLM Accuracy on Chart Data Extraction
-  </h3>
-
-  <p>
-    <strong>Source:</strong> arXiv Artificial Intelligence
-  </p>
-
-  <p>
-    <strong>Area:</strong> AI research
-  </p>
-
-  <p>
-    <strong>Published:</strong>
-    May 13, 2026
-  </p>
-
-  <p>
-    <a href="https://arxiv.org/abs/2605.08220" target="_blank">
-      Read original source
-    </a>
-  </p>
+  <p><strong>Source:</strong> arXiv Artificial Intelligence</p>
+  <p><strong>Area:</strong> AI research</p>
+  <p><strong>Published:</strong> May 13, 2026</p>
+  <p><a href="https://arxiv.org/abs/2605.08220" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
+  <p>arXiv:2605.08220v1 Announce Type: new  Abstract: The automated extraction of data from scientific charts is a critical task for large-scale literature analysis. While multimodal Large Language Models (LLMs) show promise, their accuracy on non-standardized charts remains a challenge. This raises a key research question: what is the most effective strategy to improve model performance (high-level semantic priming) or low-level spatial priming? This paper presents a comparative investigation into these two distinct strategies. We describe our exploratory experiments with semantic methods, such as a two-stage metadata-first framework and Chain-of-Thought, which failed to produce a statistically significant improvement. In contrast, we present a simple but highly effective spatial priming method: overlaying a coordinate grid onto the chart image before analysis. Our quantitative experiment on</p>
 
-  <p>arXiv:2605.08220v1 Announce Type: new  Abstract: The automated extraction of data from scientific charts is a critical task for large-scale literature analysis. While multimodal Large Language Models (LLMs) show promise, their accuracy on non-standardized charts remains a challenge. This raises a key research question: what is the most effective strategy to improve model performance (high-level semantic priming) or low-level spatial priming? This paper presents a comparative investigation into these two distinct strategies. We describe our exploratory experiments with semantic methods, such as a two-stage metadata-first framework and Chain-of-Thought, which failed to produce a statistically </p>
+  <h4>Five core mental models</h4>
+  <ol><li>AI research is not just technical progress. It changes who controls economic capacity.</li><li>The scarce layer matters more than the visible product layer.</li><li>Infrastructure determines who can scale.</li><li>Institutions decide whether capability becomes real adoption.</li><li>Distribution decides who captures value.</li></ol>
 
-  <h4>Core mental models</h4>
+  <h4>Five places experts disagree</h4>
+  <ol><li>Scarcity versus abundance: whether AI capability becomes cheap and universal or remains concentrated through compute, chips, energy, and deployment channels.</li><li>Open versus closed systems: whether open models commoditize intelligence or closed platforms win through integration, safety, trust, and distribution.</li><li>Model quality versus infrastructure power: whether the best model wins or the owner of the hardest-to-route-around layer wins.</li><li>National sovereignty versus market procurement: whether countries need domestic AI infrastructure or reliable access to allied commercial infrastructure.</li><li>Acceleration versus governance: whether institutions should move faster or slow down to manage systemic risk.</li></ol>
 
-  <ol><li>AI research shapes economic and institutional power.</li><li>Infrastructure bottlenecks matter more than surface-level products.</li><li>Distribution controls adoption.</li><li>Governance determines scalability.</li><li>Scarcity creates leverage.</li></ol>
-
-  <h4>Expert disagreements</h4>
-
-  <ol><li>Open models versus closed platforms</li><li>Scarcity versus abundance</li><li>National AI versus global infrastructure</li><li>Model quality versus distribution power</li><li>Regulation versus acceleration</li></ol>
-
-  <h4>Deep understanding questions</h4>
-
-  <ol><li>Who controls the bottleneck?</li><li>Which layer captures value?</li><li>What becomes commoditized?</li><li>Where does dependency form?</li><li>What changes institutional power?</li></ol>
-
+  <h4>Ten questions that test deep understanding</h4>
+  <ol><li>What is the real bottleneck?</li><li>Who controls the scarce layer?</li><li>Who becomes dependent on whom?</li><li>Where does value move if models become cheaper?</li><li>Which layer is hardest to route around?</li><li>What would make this trend accelerate?</li><li>What would make this trend fail?</li><li>Which institutions gain power from this shift?</li><li>Which actors lose power if this continues?</li><li>What would a shallow analyst completely miss?</li></ol>
 </article>
 
-<article class="card briefing-card">
+<article class="weekly-card">
+  <p class="weekly-eyebrow">Research signal 3</p>
 
-  <p class="eyebrow">
-    Research signal 3
-  </p>
+  <h3>Auto-Rubric as Reward: From Implicit Preferences to Explicit Multimodal Generative Criteria</h3>
 
-  <h3>
-    Auto-Rubric as Reward: From Implicit Preferences to Explicit Multimodal Generative Criteria
-  </h3>
-
-  <p>
-    <strong>Source:</strong> arXiv Artificial Intelligence
-  </p>
-
-  <p>
-    <strong>Area:</strong> AI research
-  </p>
-
-  <p>
-    <strong>Published:</strong>
-    May 13, 2026
-  </p>
-
-  <p>
-    <a href="https://arxiv.org/abs/2605.08354" target="_blank">
-      Read original source
-    </a>
-  </p>
+  <p><strong>Source:</strong> arXiv Artificial Intelligence</p>
+  <p><strong>Area:</strong> AI research</p>
+  <p><strong>Published:</strong> May 13, 2026</p>
+  <p><a href="https://arxiv.org/abs/2605.08354" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
+  <p>arXiv:2605.08354v1 Announce Type: new  Abstract: Aligning multimodal generative models with human preferences demands reward signals that respect the compositional, multi-dimensional structure of human judgment. Prevailing RLHF approaches reduce this structure to scalar or pairwise labels, collapsing nuanced preferences into opaque parametric proxies and exposing vulnerabilities to reward hacking. While recent Rubrics-as-Reward (RaR) methods attempt to recover this structure through explicit criteria, generating rubrics that are simultaneously reliable, scalable, and data-efficient remains an open problem. We introduce Auto-Rubric as Reward (ARR), a framework that reframes reward modeling from implicit weight optimization to explicit, criteria-based decomposition. Before any pairwise comparison, ARR externalizes a VLM&#x27;s internalized preference knowledge as prompt-specific rubrics, t</p>
 
-  <p>arXiv:2605.08354v1 Announce Type: new  Abstract: Aligning multimodal generative models with human preferences demands reward signals that respect the compositional, multi-dimensional structure of human judgment. Prevailing RLHF approaches reduce this structure to scalar or pairwise labels, collapsing nuanced preferences into opaque parametric proxies and exposing vulnerabilities to reward hacking. While recent Rubrics-as-Reward (RaR) methods attempt to recover this structure through explicit criteria, generating rubrics that are simultaneously reliable, scalable, and data-efficient remains an open problem. We introduce Auto-Rubric as Reward (ARR), a framework that reframes reward modeling fr</p>
+  <h4>Five core mental models</h4>
+  <ol><li>AI research is not just technical progress. It changes who controls economic capacity.</li><li>The scarce layer matters more than the visible product layer.</li><li>Infrastructure determines who can scale.</li><li>Institutions decide whether capability becomes real adoption.</li><li>Distribution decides who captures value.</li></ol>
 
-  <h4>Core mental models</h4>
+  <h4>Five places experts disagree</h4>
+  <ol><li>Scarcity versus abundance: whether AI capability becomes cheap and universal or remains concentrated through compute, chips, energy, and deployment channels.</li><li>Open versus closed systems: whether open models commoditize intelligence or closed platforms win through integration, safety, trust, and distribution.</li><li>Model quality versus infrastructure power: whether the best model wins or the owner of the hardest-to-route-around layer wins.</li><li>National sovereignty versus market procurement: whether countries need domestic AI infrastructure or reliable access to allied commercial infrastructure.</li><li>Acceleration versus governance: whether institutions should move faster or slow down to manage systemic risk.</li></ol>
 
-  <ol><li>AI research shapes economic and institutional power.</li><li>Infrastructure bottlenecks matter more than surface-level products.</li><li>Distribution controls adoption.</li><li>Governance determines scalability.</li><li>Scarcity creates leverage.</li></ol>
-
-  <h4>Expert disagreements</h4>
-
-  <ol><li>Open models versus closed platforms</li><li>Scarcity versus abundance</li><li>National AI versus global infrastructure</li><li>Model quality versus distribution power</li><li>Regulation versus acceleration</li></ol>
-
-  <h4>Deep understanding questions</h4>
-
-  <ol><li>Who controls the bottleneck?</li><li>Which layer captures value?</li><li>What becomes commoditized?</li><li>Where does dependency form?</li><li>What changes institutional power?</li></ol>
-
+  <h4>Ten questions that test deep understanding</h4>
+  <ol><li>What is the real bottleneck?</li><li>Who controls the scarce layer?</li><li>Who becomes dependent on whom?</li><li>Where does value move if models become cheaper?</li><li>Which layer is hardest to route around?</li><li>What would make this trend accelerate?</li><li>What would make this trend fail?</li><li>Which institutions gain power from this shift?</li><li>Which actors lose power if this continues?</li><li>What would a shallow analyst completely miss?</li></ol>
 </article>
 
-<article class="card briefing-card">
+<article class="weekly-card">
+  <p class="weekly-eyebrow">Research signal 4</p>
 
-  <p class="eyebrow">
-    Research signal 4
-  </p>
+  <h3>Embeddings for Preferences, Not Semantics</h3>
 
-  <h3>
-    Embeddings for Preferences, Not Semantics
-  </h3>
-
-  <p>
-    <strong>Source:</strong> arXiv Artificial Intelligence
-  </p>
-
-  <p>
-    <strong>Area:</strong> AI research
-  </p>
-
-  <p>
-    <strong>Published:</strong>
-    May 13, 2026
-  </p>
-
-  <p>
-    <a href="https://arxiv.org/abs/2605.08360" target="_blank">
-      Read original source
-    </a>
-  </p>
+  <p><strong>Source:</strong> arXiv Artificial Intelligence</p>
+  <p><strong>Area:</strong> AI research</p>
+  <p><strong>Published:</strong> May 13, 2026</p>
+  <p><a href="https://arxiv.org/abs/2605.08360" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
+  <p>arXiv:2605.08360v1 Announce Type: new  Abstract: Modern AI is opening the door to collective decision-making in which participants express their views as free-form text rather than voting on a fixed set of candidates. A natural idea is to embed these opinions in a vector space so that the substantial literature on facility location problems and fair clustering can be brought to bear. But standard text embeddings measure semantic similarity, whereas distances in facility location problems and fair clustering require what we call \textit{preferential similarity}: a participant&#x27;s agreement with a piece of text should be inversely related to their distance from it. Off-the-shelf embeddings inherit a coarse preference signal through a correlation between semantic and preferential similarity, but fail to capture preferences when the correlation breaks. We formalize this as an invariance p</p>
 
-  <p>arXiv:2605.08360v1 Announce Type: new  Abstract: Modern AI is opening the door to collective decision-making in which participants express their views as free-form text rather than voting on a fixed set of candidates. A natural idea is to embed these opinions in a vector space so that the substantial literature on facility location problems and fair clustering can be brought to bear. But standard text embeddings measure semantic similarity, whereas distances in facility location problems and fair clustering require what we call \textit{preferential similarity}: a participant&#x27;s agreement with a piece of text should be inversely related to their distance from it. Off-the-shelf embeddings </p>
+  <h4>Five core mental models</h4>
+  <ol><li>AI research is not just technical progress. It changes who controls economic capacity.</li><li>The scarce layer matters more than the visible product layer.</li><li>Infrastructure determines who can scale.</li><li>Institutions decide whether capability becomes real adoption.</li><li>Distribution decides who captures value.</li></ol>
 
-  <h4>Core mental models</h4>
+  <h4>Five places experts disagree</h4>
+  <ol><li>Scarcity versus abundance: whether AI capability becomes cheap and universal or remains concentrated through compute, chips, energy, and deployment channels.</li><li>Open versus closed systems: whether open models commoditize intelligence or closed platforms win through integration, safety, trust, and distribution.</li><li>Model quality versus infrastructure power: whether the best model wins or the owner of the hardest-to-route-around layer wins.</li><li>National sovereignty versus market procurement: whether countries need domestic AI infrastructure or reliable access to allied commercial infrastructure.</li><li>Acceleration versus governance: whether institutions should move faster or slow down to manage systemic risk.</li></ol>
 
-  <ol><li>AI research shapes economic and institutional power.</li><li>Infrastructure bottlenecks matter more than surface-level products.</li><li>Distribution controls adoption.</li><li>Governance determines scalability.</li><li>Scarcity creates leverage.</li></ol>
-
-  <h4>Expert disagreements</h4>
-
-  <ol><li>Open models versus closed platforms</li><li>Scarcity versus abundance</li><li>National AI versus global infrastructure</li><li>Model quality versus distribution power</li><li>Regulation versus acceleration</li></ol>
-
-  <h4>Deep understanding questions</h4>
-
-  <ol><li>Who controls the bottleneck?</li><li>Which layer captures value?</li><li>What becomes commoditized?</li><li>Where does dependency form?</li><li>What changes institutional power?</li></ol>
-
+  <h4>Ten questions that test deep understanding</h4>
+  <ol><li>What is the real bottleneck?</li><li>Who controls the scarce layer?</li><li>Who becomes dependent on whom?</li><li>Where does value move if models become cheaper?</li><li>Which layer is hardest to route around?</li><li>What would make this trend accelerate?</li><li>What would make this trend fail?</li><li>Which institutions gain power from this shift?</li><li>Which actors lose power if this continues?</li><li>What would a shallow analyst completely miss?</li></ol>
 </article>
 
-<article class="card briefing-card">
+<article class="weekly-card">
+  <p class="weekly-eyebrow">Research signal 5</p>
 
-  <p class="eyebrow">
-    Research signal 5
-  </p>
+  <h3>On Distinguishing Capability Elicitation from Capability Creation in Post-Training: A Free-Energy Perspective</h3>
 
-  <h3>
-    On Distinguishing Capability Elicitation from Capability Creation in Post-Training: A Free-Energy Perspective
-  </h3>
-
-  <p>
-    <strong>Source:</strong> arXiv Artificial Intelligence
-  </p>
-
-  <p>
-    <strong>Area:</strong> AI research
-  </p>
-
-  <p>
-    <strong>Published:</strong>
-    May 13, 2026
-  </p>
-
-  <p>
-    <a href="https://arxiv.org/abs/2605.08368" target="_blank">
-      Read original source
-    </a>
-  </p>
+  <p><strong>Source:</strong> arXiv Artificial Intelligence</p>
+  <p><strong>Area:</strong> AI research</p>
+  <p><strong>Published:</strong> May 13, 2026</p>
+  <p><a href="https://arxiv.org/abs/2605.08368" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
+  <p>arXiv:2605.08368v1 Announce Type: new  Abstract: Debates about large language model post-training often treat supervised fine-tuning (SFT) as imitation and reinforcement learning (RL) as discovery. But this distinction is too coarse. What matters is whether a training procedure increases the probability of behaviors the pretrained model could already produce, or whether it changes what the model can practically reach. We argue that post-training research should distinguish between capability elicitation and capability creation. We make this distinction operational by introducing the notion of accessible support: the set of behaviors that a model can practically produce under finite budgets. Post-training that reweights behaviors within this support is capability elicitation; whereas changing the support itself corresponds to capability creation. We develop this argument through a free-en</p>
 
-  <p>arXiv:2605.08368v1 Announce Type: new  Abstract: Debates about large language model post-training often treat supervised fine-tuning (SFT) as imitation and reinforcement learning (RL) as discovery. But this distinction is too coarse. What matters is whether a training procedure increases the probability of behaviors the pretrained model could already produce, or whether it changes what the model can practically reach. We argue that post-training research should distinguish between capability elicitation and capability creation. We make this distinction operational by introducing the notion of accessible support: the set of behaviors that a model can practically produce under finite budgets. </p>
+  <h4>Five core mental models</h4>
+  <ol><li>AI research is not just technical progress. It changes who controls economic capacity.</li><li>The scarce layer matters more than the visible product layer.</li><li>Infrastructure determines who can scale.</li><li>Institutions decide whether capability becomes real adoption.</li><li>Distribution decides who captures value.</li></ol>
 
-  <h4>Core mental models</h4>
+  <h4>Five places experts disagree</h4>
+  <ol><li>Scarcity versus abundance: whether AI capability becomes cheap and universal or remains concentrated through compute, chips, energy, and deployment channels.</li><li>Open versus closed systems: whether open models commoditize intelligence or closed platforms win through integration, safety, trust, and distribution.</li><li>Model quality versus infrastructure power: whether the best model wins or the owner of the hardest-to-route-around layer wins.</li><li>National sovereignty versus market procurement: whether countries need domestic AI infrastructure or reliable access to allied commercial infrastructure.</li><li>Acceleration versus governance: whether institutions should move faster or slow down to manage systemic risk.</li></ol>
 
-  <ol><li>AI research shapes economic and institutional power.</li><li>Infrastructure bottlenecks matter more than surface-level products.</li><li>Distribution controls adoption.</li><li>Governance determines scalability.</li><li>Scarcity creates leverage.</li></ol>
-
-  <h4>Expert disagreements</h4>
-
-  <ol><li>Open models versus closed platforms</li><li>Scarcity versus abundance</li><li>National AI versus global infrastructure</li><li>Model quality versus distribution power</li><li>Regulation versus acceleration</li></ol>
-
-  <h4>Deep understanding questions</h4>
-
-  <ol><li>Who controls the bottleneck?</li><li>Which layer captures value?</li><li>What becomes commoditized?</li><li>Where does dependency form?</li><li>What changes institutional power?</li></ol>
-
+  <h4>Ten questions that test deep understanding</h4>
+  <ol><li>What is the real bottleneck?</li><li>Who controls the scarce layer?</li><li>Who becomes dependent on whom?</li><li>Where does value move if models become cheaper?</li><li>Which layer is hardest to route around?</li><li>What would make this trend accelerate?</li><li>What would make this trend fail?</li><li>Which institutions gain power from this shift?</li><li>Which actors lose power if this continues?</li><li>What would a shallow analyst completely miss?</li></ol>
 </article>
 
+        </div>
+      </div>
+    </section>
+  </main>
 
-    </div>
-
-  </div>
-</section>
-
-</main>
-
-
-<footer class="site-footer">
-  <div class="container">
+  
+<footer class="weekly-footer">
+  <div class="weekly-container">
     <p>© Institute for AI Economics 2026</p>
   </div>
 </footer>
-
 
 </body>
 </html>
