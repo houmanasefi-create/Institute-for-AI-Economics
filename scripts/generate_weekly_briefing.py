@@ -254,10 +254,20 @@ def build_index():
         reverse=True
     )
 
-    links = ""
+    cards = ""
     for f in files:
         title_date = f.stem
-        links += f'<li><a href="./{f.name}">AI Economics Weekly Briefing - {title_date}</a></li>\n'
+        cards += f"""
+        <article class="card">
+          <p class="eyebrow">Weekly briefing</p>
+          <h3><a href="./{f.name}">AI Economics Weekly Briefing</a></h3>
+          <p>{title_date}</p>
+          <p>
+            A weekly scan of AI infrastructure, compute, energy, chips,
+            institutions, governance, distribution, and economic power.
+          </p>
+        </article>
+        """
 
     year = datetime.now().strftime("%Y")
 
@@ -270,39 +280,54 @@ def build_index():
   <link rel="stylesheet" href="../assets/site.css" />
 </head>
 <body>
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../research.html">Research</a>
-    <a href="./index.html">Weekly Briefings</a>
-    <a href="../infrastructure.html">Infrastructure</a>
-    <a href="../institutions.html">Institutions</a>
-    <a href="../distribution.html">Distribution</a>
-    <a href="../contact.html">Contact</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-logo" href="../index.html">INSTITUTE FOR<br />AI ECONOMICS</a>
+      <a class="button" href="../contact.html">Contact</a>
+    </div>
+  </header>
+
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="./index.html">Weekly Briefings</a>
+      <a href="../infrastructure.html">Infrastructure</a>
+      <a href="../institutions.html">Institutions</a>
+      <a href="../distribution.html">Distribution</a>
+      <a href="../contact.html">Contact</a>
+    </div>
   </nav>
 
   <main>
-    <section>
-      <h1>Weekly Briefings</h1>
-      <p>
-        Weekly research briefings on AI infrastructure, institutions, compute,
-        energy, distribution, governance, and economic power.
-      </p>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Weekly briefings</p>
+        <h1>Weekly AI economics intelligence.</h1>
+        <p>
+          Every week, the Institute scans AI research, policy, infrastructure,
+          compute, energy, chips, institutions, and distribution to identify the
+          signals that matter.
+        </p>
+      </div>
     </section>
 
-    <section>
-      <h2>Archive</h2>
-      <ul>
-        {links}
-      </ul>
+    <section class="section">
+      <div class="container">
+        <h2>Briefing archive</h2>
+        <div class="grid">
+          {cards}
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
-  <div class="container">
-    <p>© Institute for AI Economics {year}</p>
+    <div class="container">
+      <p>© Institute for AI Economics {year}</p>
+    </div>
   </footer>
 </body>
-  </div>
 </html>"""
 
 
