@@ -13,7 +13,12 @@ SOURCES = [
     {
         "name": "arXiv Machine Learning",
         "url": "https://export.arxiv.org/rss/cs.LG",
-        "area": "Machine learning research",
+        "area": "machine learning research",
+    },
+    {
+        "name": "arXiv Computers and Society",
+        "url": "https://export.arxiv.org/rss/cs.CY",
+        "area": "AI society, governance, and digital institutions",
     },
     {
         "name": "Stanford HAI",
@@ -25,7 +30,65 @@ SOURCES = [
         "url": "https://oecd.ai/en/wonk/rss.xml",
         "area": "AI governance and policy",
     },
+    {
+        "name": "BIS Speeches",
+        "url": "https://www.bis.org/doclist/cbspeeches.rss",
+        "area": "central banking, financial systems, and digital money",
+    },
+    {
+        "name": "BIS Working Papers",
+        "url": "https://www.bis.org/doclist/workpap.rss",
+        "area": "financial systems, macroeconomics, and technology",
+    },
 ]
+
+PRIORITY_TERMS = [
+    "compute",
+    "data center",
+    "datacenter",
+    "energy",
+    "electricity",
+    "grid",
+    "chips",
+    "semiconductor",
+    "gpu",
+    "accelerator",
+    "infrastructure",
+    "cloud",
+    "sovereign",
+    "governance",
+    "policy",
+    "regulation",
+    "institution",
+    "productivity",
+    "labor",
+    "capital",
+    "financial stability",
+    "central bank",
+    "monetary",
+    "risk",
+    "frontier model",
+    "foundation model",
+    "open model",
+    "closed model",
+    "supply chain",
+    "industrial policy",
+    "distribution",
+    "enterprise adoption",
+    "deployment",
+    "security",
+    "geopolitics",
+]
+
+SOURCE_WEIGHTS = {
+    "BIS Speeches": 3,
+    "BIS Working Papers": 3,
+    "OECD AI Policy Observatory": 3,
+    "Stanford HAI": 3,
+    "arXiv Computers and Society": 2,
+    "arXiv Artificial Intelligence": 1,
+    "arXiv Machine Learning": 1,
+}
 
 
 def parse_date(entry):
@@ -48,6 +111,17 @@ def clean_text(value):
     return html.escape(value.replace("\n", " ").strip())
 
 
+def relevance_score(title, summary, source_name):
+    combined_text = f"{title} {summary}".lower()
+    score = SOURCE_WEIGHTS.get(source_name, 1)
+
+    for term in PRIORITY_TERMS:
+        if term in combined_text:
+            score += 1
+
+    return score
+
+
 def collect_recent_items():
     cutoff = datetime.now(timezone.utc) - timedelta(days=7)
     items = []
@@ -55,23 +129,48 @@ def collect_recent_items():
     for source in SOURCES:
         feed = feedparser.parse(source["url"])
 
-        for entry in feed.entries[:10]:
+        for entry in feed.entries[:12]:
             published = parse_date(entry)
 
             if published < cutoff:
                 continue
 
+            title = clean_text(entry.get("title", "Untitled"))
+            link = entry.get("link", "")
+            summary = clean_text(entry.get("summary", "No summary available."))[:900]
+            score = relevance_score(title, summary, source["name"])
+
             items.append({
-                "title": clean_text(entry.get("title", "Untitled")),
-                "link": entry.get("link", ""),
-                "summary": clean_text(entry.get("summary", "No summary available."))[:900],
+                "title": title,
+                "link": link,
+                "summary": summary,
                 "source": source["name"],
                 "area": source["area"],
                 "published": published,
+                "score": score,
             })
 
-    items.sort(key=lambda x: x["published"], reverse=True)
-    return items[:5]
+    items.sort(key=lambda x: (x["score"], x["published"]), reverse=True)
+
+    selected = []
+    used_sources = set()
+
+    for item in items:
+        if item["source"] not in used_sources:
+            selected.append(item)
+            used_sources.add(item["source"])
+
+        if len(selected) == 5:
+            return selected
+
+    for item in items:
+        if item not in selected:
+            selected.append(item)
+
+        if len(selected) == 5:
+            break
+
+    return selected
 
 
 def page_styles():
@@ -151,6 +250,17 @@ def page_styles():
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 14px;
+}
+
+.weekly-score {
+  display: inline-block;
+  background: #eef6ff;
+  color: #082b57;
+  border: 1px solid #b9dcf5;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 800;
+  margin: 8px 0 12px;
 }
 
 .weekly-hero h1 {
@@ -296,6 +406,7 @@ def mental_models(area):
         "Infrastructure determines who can scale.",
         "Institutions decide whether capability becomes real adoption.",
         "Distribution decides who captures value.",
+        "Governance determines whether adoption compounds or stalls.",
     ]
 
 
@@ -350,6 +461,7 @@ def build_article_blocks(items):
   <p><strong>Source:</strong> {item["source"]}</p>
   <p><strong>Area:</strong> {item["area"]}</p>
   <p><strong>Published:</strong> {item["published"].strftime("%B %d, %Y")}</p>
+  <p class="weekly-score">Strategic relevance score: {item["score"]}</p>
   <p><a href="{item["link"]}" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
@@ -395,7 +507,7 @@ def build_html(items):
         <p>{display_date}</p>
         <p>
           A weekly scan of AI infrastructure, compute, energy, governance,
-          institutions, chips, and distribution.
+          institutions, chips, finance, markets, and distribution.
         </p>
       </div>
     </section>
@@ -433,7 +545,7 @@ def build_index():
   <p>{title_date}</p>
   <p>
     Weekly intelligence across AI infrastructure, compute, chips,
-    governance, institutions, energy, and distribution.
+    governance, institutions, energy, finance, markets, and distribution.
   </p>
 </article>
 """
@@ -460,7 +572,8 @@ def build_index():
         <h1>Weekly AI economics intelligence.</h1>
         <p>
           Every week, the Institute scans AI research, infrastructure,
-          compute, governance, institutions, chips, energy, and distribution.
+          compute, governance, institutions, chips, energy, finance,
+          markets, and distribution.
         </p>
       </div>
     </section>
