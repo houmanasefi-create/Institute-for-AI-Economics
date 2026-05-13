@@ -215,7 +215,7 @@ def build_html(items):
     </div>
   </header>
 
-  <main>
+  <main class="page">
     <section>
       <p>Weekly briefing</p>
       <h1>AI Economics Weekly Briefing</h1>
