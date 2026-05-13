@@ -169,7 +169,7 @@ def build_html(items):
         questions = "".join(f"<li>{q}</li>" for q in deep_questions())
 
         article_blocks += f"""
-        <article>
+        <article class="card briefing-card">
           <h3>{i}. {item["title"]}</h3>
           <p><strong>Source:</strong> {item["source"]}</p>
           <p><strong>Area:</strong> {item["area"]}</p>
@@ -216,7 +216,8 @@ def build_html(items):
   </header>
 
   <main class="page">
-    <section>
+    <section class="hero">
+  <div class="container">
       <p>Weekly briefing</p>
       <h1>AI Economics Weekly Briefing</h1>
       <p>{display_date}</p>
@@ -224,11 +225,14 @@ def build_html(items):
         A weekly scan of AI infrastructure, institutions, compute, energy, chips,
         governance, distribution, and economic power.
       </p>
+        </div>
     </section>
 
-    <section>
-      <h2>Top 5 research signals</h2>
+    <section class="section">
+  <div class="container">
+    <h2>Top 5 research signals</h2>
       {article_blocks}
+        </div>
     </section>
 
     <section>
@@ -293,10 +297,12 @@ def build_index():
     </section>
   </main>
 
-  <footer>
+  <footer class="site-footer">
+  <div class="container">
     <p>© Institute for AI Economics {year}</p>
   </footer>
 </body>
+  </div>
 </html>"""
 
 
