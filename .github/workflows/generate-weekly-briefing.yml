@@ -1,0 +1,49 @@
+name: Generate Weekly Briefing
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 23 * * 0"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get website files
+        uses: actions/checkout@v4
+
+      - name: Create weekly briefing page
+        run: |
+          mkdir -p weekly-briefings
+
+          DATE=$(date +%F)
+
+          cat > weekly-briefings/$DATE.html <<EOF
+          <html>
+            <body>
+              <h1>Weekly AI Economics Briefing</h1>
+              <p>This briefing was created automatically on $DATE.</p>
+            </body>
+          </html>
+          EOF
+
+          cat > weekly-briefings/index.html <<EOF
+          <html>
+            <body>
+              <h1>Weekly Briefings</h1>
+              <p><a href="./$DATE.html">Latest Briefing - $DATE</a></p>
+            </body>
+          </html>
+          EOF
+
+      - name: Save changes back to GitHub
+        run: |
+          git config user.name "Institute Briefing Bot"
+          git config user.email "bot@example.com"
+          git add weekly-briefings
+          git commit -m "Add weekly briefing" || echo "No changes"
+          git push
