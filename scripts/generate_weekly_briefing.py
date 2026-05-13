@@ -199,15 +199,21 @@ def build_html(items):
   <link rel="stylesheet" href="../assets/site.css" />
 </head>
 <body>
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../research.html">Research</a>
-    <a href="./index.html">Weekly Briefings</a>
-    <a href="../infrastructure.html">Infrastructure</a>
-    <a href="../institutions.html">Institutions</a>
-    <a href="../distribution.html">Distribution</a>
-    <a href="../contact.html">Contact</a>
-  </nav>
+  <body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html">Institute for AI Economics</a>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../research.html">Research</a>
+        <a href="./index.html">Weekly Briefings</a>
+        <a href="../infrastructure.html">Infrastructure</a>
+        <a href="../institutions.html">Institutions</a>
+        <a href="../distribution.html">Distribution</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
   <main>
     <section>
