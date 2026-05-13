@@ -16,36 +16,26 @@ jobs:
       - name: Get website files
         uses: actions/checkout@v4
 
-      - name: Create weekly briefing page
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python packages
         run: |
-          mkdir -p weekly-briefings
+          pip install feedparser
 
-          DATE=$(date +%F)
+      - name: Run real briefing generator
+        run: |
+          python scripts/generate_weekly_briefing.py
 
-          cat > weekly-briefings/$DATE.html <<EOF
-          <html>
-            <body>
-              <h1>Weekly AI Economics Briefing</h1>
-              <p>This briefing was created automatically on $DATE.</p>
-            </body>
-          </html>
-          EOF
-
-          cat > weekly-briefings/index.html <<EOF
-          <html>
-            <body>
-              <h1>Weekly Briefings</h1>
-              <p><a href="./$DATE.html">Latest Briefing - $DATE</a></p>
-            </body>
-          </html>
-          EOF
       - name: Save changes back to GitHub
         run: |
           git config user.name "Institute Briefing Bot"
-          git config user.email "bot@example.com"
+          git config user.email "bot@instituteofaieconomics.org"
 
           git add weekly-briefings
-          git commit -m "Add weekly briefing" || echo "No changes to commit"
+          git commit -m "Generate weekly research briefing" || echo "No changes to commit"
 
           git pull --rebase origin main
           git push origin main
