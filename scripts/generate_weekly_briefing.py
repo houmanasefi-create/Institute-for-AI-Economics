@@ -47,30 +47,14 @@ SOURCES = [
     },
 ]
 
-PRIORITY_TERMS = [
+TIER_1_TOPICS = [
     "ai infrastructure",
     "compute",
     "compute allocation",
     "compute economics",
-    "data center",
-    "datacenter",
-    "datacenters",
-    "energy",
-    "electricity",
-    "power",
-    "power grid",
-    "grid",
-    "grid stability",
-    "electric load",
-    "power purchase agreement",
-    "ppa",
-    "power plant",
-    "nuclear",
-    "renewable",
-    "cooling",
-    "liquid cooling",
-    "rack density",
-    "transformer shortage",
+    "gpu",
+    "gpu allocation",
+    "gpu utilization",
     "chips",
     "chip manufacturing",
     "semiconductor",
@@ -79,7 +63,6 @@ PRIORITY_TERMS = [
     "tsmc",
     "nvidia",
     "amd",
-    "gpu",
     "h100",
     "b200",
     "blackwell",
@@ -89,44 +72,81 @@ PRIORITY_TERMS = [
     "inference",
     "inference cost",
     "inference serving",
-    "gpu utilization",
     "latency",
-    "model routing",
-    "edge inference",
+    "datacenter",
+    "data center",
+    "datacenters",
+    "power grid",
+    "electricity",
+    "energy",
+    "power",
+    "power plant",
+    "electric load",
+    "grid stability",
+    "power purchase agreement",
+    "ppa",
+    "nuclear",
+    "cooling",
+    "liquid cooling",
+    "rack density",
+    "transformer shortage",
     "hyperscaler",
     "hyperscalers",
     "aws",
     "azure",
     "google cloud",
     "oracle cloud",
-    "cloud",
     "ai factory",
     "server infrastructure",
-    "supply chain",
-    "chip export",
-    "export controls",
-    "industrial policy",
     "sovereign ai",
-    "sovereign",
-    "geopolitics",
-    "capital expenditure",
-    "capex",
+    "export controls",
+    "chip export",
+    "industrial policy",
+    "supply chain",
+    "ai supply chain",
     "datacenter financing",
+    "capex",
+    "capital expenditure",
+]
+
+TIER_2_TOPICS = [
+    "enterprise adoption",
+    "deployment",
+    "automation",
+    "labor",
+    "labor displacement",
+    "productivity",
+    "capital concentration",
+    "market power",
+    "distribution",
+    "ai governance",
+    "regulation",
+    "policy",
+    "institutions",
+    "geopolitics",
+    "security",
+    "robotics",
     "frontier model",
     "foundation model",
     "open model",
     "closed model",
-    "enterprise adoption",
-    "deployment",
-    "automation",
-    "productivity",
-    "labor",
-    "capital concentration",
-    "distribution",
-    "governance",
-    "policy",
-    "regulation",
-    "security",
+]
+
+TIER_3_TOPICS = [
+    "agent orchestration",
+    "orchestration",
+    "agentic",
+    "multi-agent",
+    "prompting",
+    "reasoning",
+    "memory",
+    "alignment",
+    "synthetic data",
+    "benchmark",
+    "framework",
+    "workflow",
+    "planner",
+    "reflection",
 ]
 
 NEGATIVE_TERMS = [
@@ -144,7 +164,7 @@ NEGATIVE_TERMS = [
 ]
 
 SOURCE_WEIGHTS = {
-    "BIS Speeches": 1,
+    "BIS Speeches": 0,
     "BIS Working Papers": 1,
     "OECD AI Policy Observatory": 2,
     "Stanford HAI": 2,
@@ -174,43 +194,78 @@ def clean_text(value):
     return html.escape(value.replace("\n", " ").strip())
 
 
-def relevance_score(title, summary, source_name):
+def topic_match_score(title, summary):
     combined_text = f"{title} {summary}".lower()
-    score = SOURCE_WEIGHTS.get(source_name, 1)
 
-    for term in PRIORITY_TERMS:
-        if term in combined_text:
-            score += 2
+    tier_1_hits = sum(1 for term in TIER_1_TOPICS if term in combined_text)
+    tier_2_hits = sum(1 for term in TIER_2_TOPICS if term in combined_text)
+    tier_3_hits = sum(1 for term in TIER_3_TOPICS if term in combined_text)
+    negative_hits = sum(1 for term in NEGATIVE_TERMS if term in combined_text)
 
-    for term in NEGATIVE_TERMS:
-        if term in combined_text:
-            score -= 2
+    score = 0
+    score += tier_1_hits * 8
+    score += tier_2_hits * 3
+    score += tier_3_hits * 1
+    score -= negative_hits * 5
 
-    return max(score, 0)
+    if tier_1_hits == 0 and tier_3_hits > 0:
+        score -= 6
+
+    return max(score, 0), tier_1_hits, tier_2_hits, tier_3_hits
+
+
+def relevance_score(title, summary, source_name):
+    source_score = SOURCE_WEIGHTS.get(source_name, 1)
+    topic_score, tier_1_hits, tier_2_hits, tier_3_hits = topic_match_score(title, summary)
+
+    return max(source_score + topic_score, 0)
 
 
 def strategic_ai_score(item):
     prompt = f"""
 You are ranking research relevance for the Institute for AI Economics.
 
-The Institute mainly cares about:
-- AI infrastructure
-- compute economics
-- power plants
-- electricity demand
-- power grids
-- datacenters
+The Institute's thesis is:
+
+AI is not mainly a software story.
+AI is an industrial infrastructure system.
+
+The Institute cares most about:
+- compute bottlenecks
+- GPU supply
 - chip manufacturing
 - semiconductor supply chains
-- GPU allocation
+- datacenters
+- electricity demand
+- power grids
+- power plants
+- cooling
 - hyperscaler economics
-- AI industrial policy
-- sovereign AI
-- AI deployment infrastructure
+- AI infrastructure finance
 - inference economics
-- capital concentration
-- automation and labor displacement
-- AI governance only when it connects to infrastructure, compute, markets, or institutions
+- sovereign AI infrastructure
+- AI industrial policy
+- export controls
+- capital concentration around infrastructure
+- AI deployment at economic scale
+
+The Institute cares moderately about:
+- labor automation
+- enterprise adoption
+- productivity
+- AI governance
+- institutions
+- distribution
+- market structure
+
+The Institute cares less about:
+- generic agent orchestration
+- generic LLM reasoning
+- prompting
+- benchmark improvements
+- abstract model architecture
+- synthetic data methods
+- central banking unrelated to AI infrastructure
 
 Research title:
 {item["title"]}
@@ -227,19 +282,21 @@ Summary:
 Return ONLY one integer from 1 to 10.
 
 Scoring:
-1 = irrelevant or generic finance/policy item
-2 = weak relevance
-3 = adjacent but not strong
-4 = somewhat relevant
-5 = useful but not central
-6 = relevant to AI economy
+1 = irrelevant
+2 = generic finance, central banking, or technical AI paper with no economic infrastructure relevance
+3 = generic AI architecture, agent, reasoning, prompting, or benchmark paper
+4 = adjacent to AI economy but not central
+5 = useful AI economy signal
+6 = relevant to deployment, labor, productivity, governance, or institutions
 7 = strong AI economy signal
-8 = very strong infrastructure/economic signal
-9 = critical strategic signal
-10 = perfect fit: compute, chips, power, grid, datacenter, hyperscaler, or AI industrial system
+8 = very strong infrastructure, compute, chip, datacenter, power, or hyperscaler signal
+9 = critical strategic signal about AI industrial systems
+10 = perfect fit: compute, chips, power grid, datacenters, hyperscalers, energy, semiconductor manufacturing, AI infrastructure finance, or sovereign AI infrastructure
 
 Important:
-Generic central banking, cash, banknotes, monetary policy, and financial regulation should score low unless directly connected to AI infrastructure or AI economic transformation.
+Do not give a high score just because the paper is about AI.
+Generic AI agent papers should usually be 2-4 unless they clearly connect to deployment economics, infrastructure economics, or enterprise-scale adoption.
+Generic central bank content should score low unless it directly connects to AI infrastructure or AI economic transformation.
 """
 
     response = client.chat.completions.create(
@@ -247,7 +304,7 @@ Generic central banking, cash, banknotes, monetary policy, and financial regulat
         messages=[
             {
                 "role": "system",
-                "content": "You rank strategic relevance for an AI economics research briefing."
+                "content": "You rank strategic relevance for a thesis-driven AI economics research briefing."
             },
             {
                 "role": "user",
@@ -275,7 +332,7 @@ def collect_recent_items():
     for source in SOURCES:
         feed = feedparser.parse(source["url"])
 
-        for entry in feed.entries[:20]:
+        for entry in feed.entries[:25]:
             published = parse_date(entry)
 
             if published < cutoff:
@@ -286,6 +343,7 @@ def collect_recent_items():
             summary = clean_text(entry.get("summary", "No summary available."))[:1200]
 
             base_score = relevance_score(title, summary, source["name"])
+            topic_score_value, tier_1_hits, tier_2_hits, tier_3_hits = topic_match_score(title, summary)
 
             item_data = {
                 "title": title,
@@ -297,7 +355,14 @@ def collect_recent_items():
             }
 
             strategic_score = strategic_ai_score(item_data)
-            final_score = base_score + (strategic_score * 5)
+
+            final_score = (
+                base_score
+                + (strategic_score * 6)
+                + (tier_1_hits * 10)
+                + (tier_2_hits * 3)
+                - (tier_3_hits * 2 if tier_1_hits == 0 else 0)
+            )
 
             items.append({
                 "title": title,
@@ -309,6 +374,9 @@ def collect_recent_items():
                 "score": final_score,
                 "strategic_score": strategic_score,
                 "base_score": base_score,
+                "tier_1_hits": tier_1_hits,
+                "tier_2_hits": tier_2_hits,
+                "tier_3_hits": tier_3_hits,
             })
 
     items.sort(key=lambda x: (x["score"], x["published"]), reverse=True)
@@ -316,14 +384,21 @@ def collect_recent_items():
     selected = []
 
     for item in items:
-        if item["strategic_score"] >= 6:
+        if item["tier_1_hits"] > 0 and item["strategic_score"] >= 5:
             selected.append(item)
 
         if len(selected) == 5:
             return selected
 
     for item in items:
-        if item not in selected:
+        if item not in selected and item["strategic_score"] >= 6:
+            selected.append(item)
+
+        if len(selected) == 5:
+            return selected
+
+    for item in items:
+        if item not in selected and item["strategic_score"] >= 4:
             selected.append(item)
 
         if len(selected) == 5:
@@ -337,6 +412,9 @@ def generate_deep_research_sections(item):
 You are writing for the Institute for AI Economics.
 
 Your job is to turn one research signal into specific intellectual raw material for future essays, briefings, debates, and content systems.
+
+The Institute's lens:
+AI is an industrial infrastructure system made of compute, energy, chips, datacenters, distribution, institutions, capital, and power.
 
 Do NOT produce generic AI commentary.
 Do NOT reuse fixed phrases across papers.
@@ -400,6 +478,8 @@ Rules:
 - Mental models must explain hidden mechanisms inside the research.
 - Expert disagreements must describe real tensions created by the research.
 - Questions must be sharp enough to feed a future content engine.
+- Include at least one question about second-order economic consequences.
+- Include at least one question about who gains power and who loses power if the research direction scales.
 - Avoid vague questions like "What is the bottleneck?"
 - Avoid generic statements like "governance matters" or "infrastructure matters."
 - Write like an analytical research strategist, not a newsletter writer.
