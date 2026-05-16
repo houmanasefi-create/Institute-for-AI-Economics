@@ -250,7 +250,7 @@ Rules:
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4.1-mini",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -277,38 +277,9 @@ Rules:
 
     except Exception as e:
         print(f"OpenAI generation failed for: {item['title']}")
-        print(e)
-
-        return {
-            "core_thesis": "This research signal requires deeper interpretation, but automated extraction failed during this run.",
-            "economic_interpretation": "No economic interpretation was generated.",
-            "five_core_mental_models": [
-                "No generated mental model available.",
-                "No generated mental model available.",
-                "No generated mental model available.",
-                "No generated mental model available.",
-                "No generated mental model available.",
-            ],
-            "five_places_experts_disagree": [
-                "No generated disagreement available.",
-                "No generated disagreement available.",
-                "No generated disagreement available.",
-                "No generated disagreement available.",
-                "No generated disagreement available.",
-            ],
-            "ten_questions_that_test_deep_understanding": [
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-                "No generated question available.",
-            ],
-        }
+        print(f"Error type: {type(e).__name__}")
+        print(f"Error details: {e}")
+        raise
 
 
 def page_styles():
