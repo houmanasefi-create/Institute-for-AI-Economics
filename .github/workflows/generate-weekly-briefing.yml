@@ -31,11 +31,11 @@ jobs:
         run: |
           python scripts/generate_weekly_briefing.py
 
-      - name: Save changes back to GitHub
+            - name: Save changes back to GitHub
         run: |
           git config user.name "Institute Briefing Bot"
           git config user.email "bot@instituteofaieconomics.org"
-          git pull --rebase origin main
           git add weekly-briefings
           git commit -m "Generate weekly research briefing" || echo "No changes to commit"
+          git pull --rebase origin main
           git push origin main
