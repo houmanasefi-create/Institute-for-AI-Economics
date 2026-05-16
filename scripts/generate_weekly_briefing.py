@@ -574,12 +574,13 @@ Published:
 Strategic score:
 {item.get("strategic_score", "N/A")}
 
-Summary:
+Raw RSS summary:
 {item["summary"]}
 
 Return ONLY valid JSON with this exact structure:
 
 {{
+  "brief_summary": "",
   "core_thesis": "",
   "economic_interpretation": "",
   "five_core_mental_models": [
@@ -611,6 +612,7 @@ Return ONLY valid JSON with this exact structure:
 }}
 
 Rules:
+- The brief_summary must be a clean 2-3 sentence human-readable summary. Do not include HTML, links, publisher tags, or raw RSS text.
 - Every output must be specific to this research item.
 - The core thesis should explain what the research is really saying.
 - The economic interpretation should explain why this matters for power, markets, institutions, labor, capital, governance, infrastructure, productivity, or distribution.
@@ -644,6 +646,7 @@ Rules:
         data = json.loads(response.choices[0].message.content)
 
         return {
+            "brief_summary": data.get("brief_summary", ""),
             "core_thesis": data.get("core_thesis", ""),
             "economic_interpretation": data.get("economic_interpretation", ""),
             "five_core_mental_models": data.get("five_core_mental_models", [])[:5],
@@ -920,7 +923,7 @@ def build_article_blocks(items):
   <p><a href="{item["link"]}" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
-  <p>{item["summary"]}</p>
+  <p>{html.escape(sections["brief_summary"])}</p>
 
   <h4>Core thesis</h4>
   <p>{html.escape(sections["core_thesis"])}</p>
