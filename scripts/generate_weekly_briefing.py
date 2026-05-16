@@ -3,6 +3,11 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from email.utils import parsedate_to_datetime
 import html
+import os
+import json
+from openai import OpenAI
+
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 SOURCES = [
     {
@@ -171,6 +176,139 @@ def collect_recent_items():
             break
 
     return selected
+
+
+def generate_deep_research_sections(item):
+    prompt = f"""
+You are writing for the Institute for AI Economics.
+
+Your job is to turn one research signal into specific intellectual raw material for future essays, briefings, debates, and content systems.
+
+Do NOT produce generic AI commentary.
+Do NOT reuse fixed phrases across papers.
+Do NOT force every paper into compute, chips, energy, or infrastructure unless the research actually supports it.
+
+Research title:
+{item["title"]}
+
+Source:
+{item["source"]}
+
+Area:
+{item["area"]}
+
+Published:
+{item["published"].strftime("%B %d, %Y")}
+
+Summary:
+{item["summary"]}
+
+Return ONLY valid JSON with this exact structure:
+
+{{
+  "core_thesis": "",
+  "economic_interpretation": "",
+  "five_core_mental_models": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "five_places_experts_disagree": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "ten_questions_that_test_deep_understanding": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}}
+
+Rules:
+- Every output must be specific to this research item.
+- The core thesis should explain what the research is really saying.
+- The economic interpretation should explain why this matters for power, markets, institutions, labor, capital, governance, infrastructure, productivity, or distribution.
+- Mental models must explain hidden mechanisms inside the research.
+- Expert disagreements must describe real tensions created by the research.
+- Questions must be sharp enough to feed a future content engine.
+- Avoid vague questions like "What is the bottleneck?"
+- Avoid generic statements like "governance matters" or "infrastructure matters."
+- Write like an analytical research strategist, not a newsletter writer.
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You extract specific research implications for AI economics."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.45,
+            response_format={"type": "json_object"}
+        )
+
+        data = json.loads(response.choices[0].message.content)
+
+        return {
+            "core_thesis": data.get("core_thesis", ""),
+            "economic_interpretation": data.get("economic_interpretation", ""),
+            "five_core_mental_models": data.get("five_core_mental_models", [])[:5],
+            "five_places_experts_disagree": data.get("five_places_experts_disagree", [])[:5],
+            "ten_questions_that_test_deep_understanding": data.get("ten_questions_that_test_deep_understanding", [])[:10],
+        }
+
+    except Exception as e:
+        print(f"OpenAI generation failed for: {item['title']}")
+        print(e)
+
+        return {
+            "core_thesis": "This research signal requires deeper interpretation, but automated extraction failed during this run.",
+            "economic_interpretation": "No economic interpretation was generated.",
+            "five_core_mental_models": [
+                "No generated mental model available.",
+                "No generated mental model available.",
+                "No generated mental model available.",
+                "No generated mental model available.",
+                "No generated mental model available.",
+            ],
+            "five_places_experts_disagree": [
+                "No generated disagreement available.",
+                "No generated disagreement available.",
+                "No generated disagreement available.",
+                "No generated disagreement available.",
+                "No generated disagreement available.",
+            ],
+            "ten_questions_that_test_deep_understanding": [
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+                "No generated question available.",
+            ],
+        }
 
 
 def page_styles():
@@ -399,40 +537,8 @@ def shared_footer(year):
 """
 
 
-def mental_models(area):
-    return [
-        f"{area} is not just technical progress. It changes who controls economic capacity.",
-        "The scarce layer matters more than the visible product layer.",
-        "Infrastructure determines who can scale.",
-        "Institutions decide whether capability becomes real adoption.",
-        "Distribution decides who captures value.",
-        "Governance determines whether adoption compounds or stalls.",
-    ]
-
-
-def disagreements():
-    return [
-        "Scarcity versus abundance: whether AI capability becomes cheap and universal or remains concentrated through compute, chips, energy, and deployment channels.",
-        "Open versus closed systems: whether open models commoditize intelligence or closed platforms win through integration, safety, trust, and distribution.",
-        "Model quality versus infrastructure power: whether the best model wins or the owner of the hardest-to-route-around layer wins.",
-        "National sovereignty versus market procurement: whether countries need domestic AI infrastructure or reliable access to allied commercial infrastructure.",
-        "Acceleration versus governance: whether institutions should move faster or slow down to manage systemic risk.",
-    ]
-
-
-def deep_questions():
-    return [
-        "What is the real bottleneck?",
-        "Who controls the scarce layer?",
-        "Who becomes dependent on whom?",
-        "Where does value move if models become cheaper?",
-        "Which layer is hardest to route around?",
-        "What would make this trend accelerate?",
-        "What would make this trend fail?",
-        "Which institutions gain power from this shift?",
-        "Which actors lose power if this continues?",
-        "What would a shallow analyst completely miss?",
-    ]
+def list_items(values):
+    return "".join(f"<li>{html.escape(str(value))}</li>" for value in values)
 
 
 def build_article_blocks(items):
@@ -448,9 +554,11 @@ def build_article_blocks(items):
     article_blocks = ""
 
     for i, item in enumerate(items, start=1):
-        models = "".join(f"<li>{m}</li>" for m in mental_models(item["area"]))
-        debates = "".join(f"<li>{d}</li>" for d in disagreements())
-        questions = "".join(f"<li>{q}</li>" for q in deep_questions())
+        sections = generate_deep_research_sections(item)
+
+        models = list_items(sections["five_core_mental_models"])
+        debates = list_items(sections["five_places_experts_disagree"])
+        questions = list_items(sections["ten_questions_that_test_deep_understanding"])
 
         article_blocks += f"""
 <article class="weekly-card">
@@ -466,6 +574,12 @@ def build_article_blocks(items):
 
   <h4>Summary</h4>
   <p>{item["summary"]}</p>
+
+  <h4>Core thesis</h4>
+  <p>{html.escape(sections["core_thesis"])}</p>
+
+  <h4>Economic interpretation</h4>
+  <p>{html.escape(sections["economic_interpretation"])}</p>
 
   <h4>Five core mental models</h4>
   <ol>{models}</ol>
