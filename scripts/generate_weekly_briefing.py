@@ -48,51 +48,109 @@ SOURCES = [
 ]
 
 PRIORITY_TERMS = [
+    "ai infrastructure",
     "compute",
+    "compute allocation",
+    "compute economics",
     "data center",
     "datacenter",
+    "datacenters",
     "energy",
     "electricity",
+    "power",
+    "power grid",
     "grid",
+    "grid stability",
+    "electric load",
+    "power purchase agreement",
+    "ppa",
+    "power plant",
+    "nuclear",
+    "renewable",
+    "cooling",
+    "liquid cooling",
+    "rack density",
+    "transformer shortage",
     "chips",
+    "chip manufacturing",
     "semiconductor",
+    "semiconductor fabrication",
+    "fab capacity",
+    "tsmc",
+    "nvidia",
+    "amd",
     "gpu",
+    "h100",
+    "b200",
+    "blackwell",
+    "mi300",
     "accelerator",
-    "infrastructure",
+    "training cluster",
+    "inference",
+    "inference cost",
+    "inference serving",
+    "gpu utilization",
+    "latency",
+    "model routing",
+    "edge inference",
+    "hyperscaler",
+    "hyperscalers",
+    "aws",
+    "azure",
+    "google cloud",
+    "oracle cloud",
     "cloud",
+    "ai factory",
+    "server infrastructure",
+    "supply chain",
+    "chip export",
+    "export controls",
+    "industrial policy",
+    "sovereign ai",
     "sovereign",
-    "governance",
-    "policy",
-    "regulation",
-    "institution",
-    "productivity",
-    "labor",
-    "capital",
-    "financial stability",
-    "central bank",
-    "monetary",
-    "risk",
+    "geopolitics",
+    "capital expenditure",
+    "capex",
+    "datacenter financing",
     "frontier model",
     "foundation model",
     "open model",
     "closed model",
-    "supply chain",
-    "industrial policy",
-    "distribution",
     "enterprise adoption",
     "deployment",
+    "automation",
+    "productivity",
+    "labor",
+    "capital concentration",
+    "distribution",
+    "governance",
+    "policy",
+    "regulation",
     "security",
-    "geopolitics",
+]
+
+NEGATIVE_TERMS = [
+    "central bank",
+    "cash landscape",
+    "banknote",
+    "monetary policy",
+    "inflation",
+    "interest rate",
+    "financial stability",
+    "commercial bank",
+    "payment systems",
+    "capital requirements",
+    "basel",
 ]
 
 SOURCE_WEIGHTS = {
-    "BIS Speeches": 3,
-    "BIS Working Papers": 3,
-    "OECD AI Policy Observatory": 3,
-    "Stanford HAI": 3,
+    "BIS Speeches": 1,
+    "BIS Working Papers": 1,
+    "OECD AI Policy Observatory": 2,
+    "Stanford HAI": 2,
     "arXiv Computers and Society": 2,
-    "arXiv Artificial Intelligence": 1,
-    "arXiv Machine Learning": 1,
+    "arXiv Artificial Intelligence": 2,
+    "arXiv Machine Learning": 2,
 }
 
 
@@ -122,9 +180,92 @@ def relevance_score(title, summary, source_name):
 
     for term in PRIORITY_TERMS:
         if term in combined_text:
-            score += 1
+            score += 2
 
-    return score
+    for term in NEGATIVE_TERMS:
+        if term in combined_text:
+            score -= 2
+
+    return max(score, 0)
+
+
+def strategic_ai_score(item):
+    prompt = f"""
+You are ranking research relevance for the Institute for AI Economics.
+
+The Institute mainly cares about:
+- AI infrastructure
+- compute economics
+- power plants
+- electricity demand
+- power grids
+- datacenters
+- chip manufacturing
+- semiconductor supply chains
+- GPU allocation
+- hyperscaler economics
+- AI industrial policy
+- sovereign AI
+- AI deployment infrastructure
+- inference economics
+- capital concentration
+- automation and labor displacement
+- AI governance only when it connects to infrastructure, compute, markets, or institutions
+
+Research title:
+{item["title"]}
+
+Source:
+{item["source"]}
+
+Area:
+{item["area"]}
+
+Summary:
+{item["summary"]}
+
+Return ONLY one integer from 1 to 10.
+
+Scoring:
+1 = irrelevant or generic finance/policy item
+2 = weak relevance
+3 = adjacent but not strong
+4 = somewhat relevant
+5 = useful but not central
+6 = relevant to AI economy
+7 = strong AI economy signal
+8 = very strong infrastructure/economic signal
+9 = critical strategic signal
+10 = perfect fit: compute, chips, power, grid, datacenter, hyperscaler, or AI industrial system
+
+Important:
+Generic central banking, cash, banknotes, monetary policy, and financial regulation should score low unless directly connected to AI infrastructure or AI economic transformation.
+"""
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": "You rank strategic relevance for an AI economics research briefing."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0
+    )
+
+    raw_score = response.choices[0].message.content.strip()
+
+    try:
+        score = int(raw_score)
+        return max(1, min(score, 10))
+    except Exception:
+        print(f"Could not parse strategic score for: {item['title']}")
+        print(f"Raw score: {raw_score}")
+        return 1
 
 
 def collect_recent_items():
@@ -134,7 +275,7 @@ def collect_recent_items():
     for source in SOURCES:
         feed = feedparser.parse(source["url"])
 
-        for entry in feed.entries[:12]:
+        for entry in feed.entries[:20]:
             published = parse_date(entry)
 
             if published < cutoff:
@@ -142,8 +283,21 @@ def collect_recent_items():
 
             title = clean_text(entry.get("title", "Untitled"))
             link = entry.get("link", "")
-            summary = clean_text(entry.get("summary", "No summary available."))[:900]
-            score = relevance_score(title, summary, source["name"])
+            summary = clean_text(entry.get("summary", "No summary available."))[:1200]
+
+            base_score = relevance_score(title, summary, source["name"])
+
+            item_data = {
+                "title": title,
+                "link": link,
+                "summary": summary,
+                "source": source["name"],
+                "area": source["area"],
+                "published": published,
+            }
+
+            strategic_score = strategic_ai_score(item_data)
+            final_score = base_score + (strategic_score * 5)
 
             items.append({
                 "title": title,
@@ -152,18 +306,18 @@ def collect_recent_items():
                 "source": source["name"],
                 "area": source["area"],
                 "published": published,
-                "score": score,
+                "score": final_score,
+                "strategic_score": strategic_score,
+                "base_score": base_score,
             })
 
     items.sort(key=lambda x: (x["score"], x["published"]), reverse=True)
 
     selected = []
-    used_sources = set()
 
     for item in items:
-        if item["source"] not in used_sources:
+        if item["strategic_score"] >= 6:
             selected.append(item)
-            used_sources.add(item["source"])
 
         if len(selected) == 5:
             return selected
@@ -199,6 +353,9 @@ Area:
 
 Published:
 {item["published"].strftime("%B %d, %Y")}
+
+Strategic score:
+{item.get("strategic_score", "N/A")}
 
 Summary:
 {item["summary"]}
@@ -540,7 +697,7 @@ def build_article_blocks(items):
   <p><strong>Source:</strong> {item["source"]}</p>
   <p><strong>Area:</strong> {item["area"]}</p>
   <p><strong>Published:</strong> {item["published"].strftime("%B %d, %Y")}</p>
-  <p class="weekly-score">Strategic relevance score: {item["score"]}</p>
+  <p class="weekly-score">Strategic relevance score: {item.get("strategic_score", item["score"])}/10</p>
   <p><a href="{item["link"]}" target="_blank" rel="noopener">Read original source</a></p>
 
   <h4>Summary</h4>
