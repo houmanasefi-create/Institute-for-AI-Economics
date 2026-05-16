@@ -23,9 +23,11 @@ jobs:
 
       - name: Install Python packages
         run: |
-          pip install feedparser
+          pip install feedparser openai python-dotenv
 
       - name: Run real briefing generator
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python scripts/generate_weekly_briefing.py
 
@@ -33,9 +35,7 @@ jobs:
         run: |
           git config user.name "Institute Briefing Bot"
           git config user.email "bot@instituteofaieconomics.org"
-
+          git pull --rebase origin main
           git add weekly-briefings
           git commit -m "Generate weekly research briefing" || echo "No changes to commit"
-
-          git pull --rebase origin main
           git push origin main
