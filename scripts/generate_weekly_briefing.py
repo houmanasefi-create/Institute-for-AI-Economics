@@ -11,6 +11,71 @@ client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 SOURCES = [
     {
+        "name": "Google News - AI Datacenter Power Grid",
+        "url": "https://news.google.com/rss/search?q=AI%20datacenter%20power%20grid&hl=en-US&gl=US&ceid=US:en",
+        "area": "AI datacenters, electricity demand, and grid infrastructure",
+    },
+    {
+        "name": "Google News - AI Chips Semiconductor",
+        "url": "https://news.google.com/rss/search?q=AI%20chips%20semiconductor%20NVIDIA%20TSMC&hl=en-US&gl=US&ceid=US:en",
+        "area": "AI chips, GPUs, semiconductor supply chains, and chip manufacturing",
+    },
+    {
+        "name": "Google News - AI Infrastructure Compute",
+        "url": "https://news.google.com/rss/search?q=AI%20infrastructure%20compute%20datacenter%20GPU&hl=en-US&gl=US&ceid=US:en",
+        "area": "AI infrastructure, compute capacity, datacenters, and GPU supply",
+    },
+    {
+        "name": "Google News - Hyperscaler Energy",
+        "url": "https://news.google.com/rss/search?q=hyperscaler%20data%20center%20energy%20nuclear%20power&hl=en-US&gl=US&ceid=US:en",
+        "area": "hyperscaler power demand, energy procurement, and datacenter expansion",
+    },
+    {
+        "name": "Google News - Sovereign AI Compute",
+        "url": "https://news.google.com/rss/search?q=sovereign%20AI%20compute%20infrastructure%20chips%20datacenter&hl=en-US&gl=US&ceid=US:en",
+        "area": "sovereign AI, compute infrastructure, industrial policy, and geopolitics",
+    },
+    {
+        "name": "The Next Platform",
+        "url": "https://www.nextplatform.com/feed/",
+        "area": "compute infrastructure, HPC, hyperscale datacenters, chips, and AI systems",
+    },
+    {
+        "name": "Data Center Dynamics",
+        "url": "https://www.datacenterdynamics.com/en/rss/",
+        "area": "datacenters, power, cooling, hyperscale infrastructure, and AI compute",
+    },
+    {
+        "name": "ServeTheHome",
+        "url": "https://www.servethehome.com/feed/",
+        "area": "server infrastructure, GPUs, accelerators, networking, and datacenter hardware",
+    },
+    {
+        "name": "NVIDIA Blog",
+        "url": "https://blogs.nvidia.com/feed/",
+        "area": "GPU infrastructure, accelerated computing, AI factories, and inference",
+    },
+    {
+        "name": "Utility Dive",
+        "url": "https://www.utilitydive.com/feeds/news/",
+        "area": "electricity grids, utilities, power demand, generation, and datacenter load",
+    },
+    {
+        "name": "IEA Reports",
+        "url": "https://www.iea.org/rss/reports.xml",
+        "area": "energy systems, electricity demand, grids, and industrial power infrastructure",
+    },
+    {
+        "name": "Stanford HAI",
+        "url": "https://hai.stanford.edu/news/rss.xml",
+        "area": "AI policy and institutions",
+    },
+    {
+        "name": "OECD AI Policy Observatory",
+        "url": "https://oecd.ai/en/wonk/rss.xml",
+        "area": "AI governance and policy",
+    },
+    {
         "name": "arXiv Artificial Intelligence",
         "url": "https://export.arxiv.org/rss/cs.AI",
         "area": "AI research",
@@ -24,16 +89,6 @@ SOURCES = [
         "name": "arXiv Computers and Society",
         "url": "https://export.arxiv.org/rss/cs.CY",
         "area": "AI society, governance, and digital institutions",
-    },
-    {
-        "name": "Stanford HAI",
-        "url": "https://hai.stanford.edu/news/rss.xml",
-        "area": "AI policy and institutions",
-    },
-    {
-        "name": "OECD AI Policy Observatory",
-        "url": "https://oecd.ai/en/wonk/rss.xml",
-        "area": "AI governance and policy",
     },
     {
         "name": "BIS Speeches",
@@ -164,14 +219,30 @@ NEGATIVE_TERMS = [
 ]
 
 SOURCE_WEIGHTS = {
-    "BIS Speeches": 0,
-    "BIS Working Papers": 1,
-    "OECD AI Policy Observatory": 2,
-    "Stanford HAI": 2,
+    "Google News - AI Datacenter Power Grid": 6,
+    "Google News - AI Chips Semiconductor": 6,
+    "Google News - AI Infrastructure Compute": 6,
+    "Google News - Hyperscaler Energy": 6,
+    "Google News - Sovereign AI Compute": 6,
+    "The Next Platform": 6,
+    "Data Center Dynamics": 6,
+    "ServeTheHome": 5,
+    "NVIDIA Blog": 5,
+    "Utility Dive": 5,
+    "IEA Reports": 5,
+    "Stanford HAI": 3,
+    "OECD AI Policy Observatory": 3,
     "arXiv Computers and Society": 2,
-    "arXiv Artificial Intelligence": 2,
-    "arXiv Machine Learning": 2,
+    "arXiv Artificial Intelligence": 1,
+    "arXiv Machine Learning": 1,
+    "BIS Working Papers": 1,
+    "BIS Speeches": 0,
 }
+
+MAX_ITEMS_PER_SOURCE = 12
+MAX_CANDIDATES_FOR_LLM_RANKING = 45
+BRIEFING_ITEM_COUNT = 5
+CUTOFF_DAYS = 14
 
 
 def parse_date(entry):
@@ -257,14 +328,18 @@ The Institute cares moderately about:
 - distribution
 - market structure
 
-The Institute cares less about:
+The Institute actively downranks:
 - generic agent orchestration
 - generic LLM reasoning
 - prompting
 - benchmark improvements
 - abstract model architecture
 - synthetic data methods
+- legal AI
+- generic e-commerce AI
 - central banking unrelated to AI infrastructure
+
+A paper about agents, reasoning, prompting, benchmarks, legal AI, or e-commerce should score 1-3 unless it clearly changes deployment economics, compute economics, infrastructure demand, labor markets, industrial organization, or market power.
 
 Research title:
 {item["title"]}
@@ -294,7 +369,7 @@ Scoring:
 
 Important:
 Do not give a high score just because the paper is about AI.
-Generic AI agent papers should usually be 2-4 unless they clearly connect to deployment economics, infrastructure economics, or enterprise-scale adoption.
+Generic AI agent papers should usually be 1-3 unless they clearly connect to deployment economics, infrastructure economics, labor substitution, market power, or enterprise-scale adoption.
 Generic central bank content should score low unless it directly connects to AI infrastructure or AI economic transformation.
 """
 
@@ -325,9 +400,9 @@ Generic central bank content should score low unless it directly connects to AI 
 
 
 def collect_recent_items():
-    cutoff_days = 14
-    cutoff = datetime.now(timezone.utc) - timedelta(days=cutoff_days)
-    items = []
+    cutoff = datetime.now(timezone.utc) - timedelta(days=CUTOFF_DAYS)
+    raw_items = []
+    seen_titles = set()
 
     for source in SOURCES:
         feed = feedparser.parse(source["url"])
@@ -335,63 +410,94 @@ def collect_recent_items():
         if getattr(feed, "bozo", False):
             print(f"Feed warning for {source['name']}: {getattr(feed, 'bozo_exception', 'Unknown feed issue')}")
 
-        for entry in feed.entries[:30]:
+        print(f"Source {source['name']} returned {len(feed.entries)} entries")
+
+        for entry in feed.entries[:MAX_ITEMS_PER_SOURCE]:
             published = parse_date(entry)
 
             if published < cutoff:
                 continue
 
             title = clean_text(entry.get("title", "Untitled"))
+            title_key = title.lower().strip()
+
+            if title_key in seen_titles:
+                continue
+
+            seen_titles.add(title_key)
+
             link = entry.get("link", "")
-            summary = clean_text(entry.get("summary", "No summary available."))[:1200]
+            summary = clean_text(entry.get("summary", entry.get("description", "No summary available.")))[:1200]
 
             base_score = relevance_score(title, summary, source["name"])
             _, tier_1_hits, tier_2_hits, tier_3_hits = topic_match_score(title, summary)
 
-            item_data = {
-                "title": title,
-                "link": link,
-                "summary": summary,
-                "source": source["name"],
-                "area": source["area"],
-                "published": published,
-            }
+            source_bonus = SOURCE_WEIGHTS.get(source["name"], 1)
 
-            strategic_score = strategic_ai_score(item_data)
-
-            final_score = (
+            pre_score = (
                 base_score
-                + (strategic_score * 6)
-                + (tier_1_hits * 10)
-                + (tier_2_hits * 3)
-                - (tier_3_hits if tier_1_hits == 0 else 0)
+                + source_bonus
+                + (tier_1_hits * 12)
+                + (tier_2_hits * 4)
+                - (tier_3_hits * 2 if tier_1_hits == 0 else 0)
             )
 
-            items.append({
+            raw_items.append({
                 "title": title,
                 "link": link,
                 "summary": summary,
                 "source": source["name"],
                 "area": source["area"],
                 "published": published,
-                "score": final_score,
-                "strategic_score": strategic_score,
+                "pre_score": pre_score,
                 "base_score": base_score,
                 "tier_1_hits": tier_1_hits,
                 "tier_2_hits": tier_2_hits,
                 "tier_3_hits": tier_3_hits,
             })
 
-    print(f"Total collected items before ranking: {len(items)}")
+    print(f"Total collected RSS items before LLM ranking: {len(raw_items)}")
 
-    if not items:
+    if not raw_items:
         print("No RSS items collected within cutoff window.")
         return []
 
-    items.sort(key=lambda x: (x["score"], x["published"]), reverse=True)
+    raw_items.sort(key=lambda x: (x["pre_score"], x["published"]), reverse=True)
 
-    print("Top ranked candidates:")
-    for item in items[:10]:
+    candidates = raw_items[:MAX_CANDIDATES_FOR_LLM_RANKING]
+
+    print("Top candidates before LLM ranking:")
+    for item in candidates[:15]:
+        print(
+            f"PRE={item['pre_score']} | "
+            f"T1={item['tier_1_hits']} | "
+            f"T2={item['tier_2_hits']} | "
+            f"T3={item['tier_3_hits']} | "
+            f"SOURCE={item['source']} | "
+            f"TITLE={item['title']}"
+        )
+
+    ranked_items = []
+
+    for item in candidates:
+        strategic_score = strategic_ai_score(item)
+
+        final_score = (
+            item["pre_score"]
+            + (strategic_score * 8)
+            + (item["tier_1_hits"] * 15)
+            + (item["tier_2_hits"] * 5)
+            - (item["tier_3_hits"] * 3 if item["tier_1_hits"] == 0 else 0)
+        )
+
+        item["strategic_score"] = strategic_score
+        item["score"] = final_score
+        ranked_items.append(item)
+
+    ranked_items.sort(key=lambda x: (x["score"], x["published"]), reverse=True)
+
+    print("Top ranked candidates after LLM ranking:")
+    for item in ranked_items[:15]:
         print(
             f"SCORE={item['score']} | "
             f"STRATEGIC={item['strategic_score']} | "
@@ -404,35 +510,40 @@ def collect_recent_items():
 
     selected = []
 
-    # First, prefer true infrastructure-heavy signals.
-    for item in items:
-        if item["tier_1_hits"] >= 1 and item["strategic_score"] >= 4:
+    for item in ranked_items:
+        if item["tier_1_hits"] >= 1 and item["strategic_score"] >= 5:
             selected.append(item)
 
-        if len(selected) >= 3:
+        if len(selected) >= 4:
             break
 
-    # Then include broader AI economy signals.
-    for item in items:
-        if item not in selected and item["strategic_score"] >= 4:
+    for item in ranked_items:
+        if item in selected:
+            continue
+
+        is_generic_ai_only = item["tier_1_hits"] == 0 and item["tier_3_hits"] > 0 and item["strategic_score"] <= 3
+
+        if not is_generic_ai_only and item["strategic_score"] >= 5:
             selected.append(item)
 
-        if len(selected) >= 5:
+        if len(selected) >= BRIEFING_ITEM_COUNT:
             break
 
-    # Absolute fallback: never publish an empty briefing if RSS items exist.
-    if len(selected) == 0:
-        print("No strong strategic matches found. Falling back to top scored items.")
-        selected = items[:5]
-
-    # If fewer than 5 passed the filters, fill remaining slots from top ranked items.
-    for item in items:
-        if len(selected) >= 5:
+    for item in ranked_items:
+        if len(selected) >= BRIEFING_ITEM_COUNT:
             break
+
+        if item not in selected and not (item["tier_1_hits"] == 0 and item["tier_3_hits"] > 0):
+            selected.append(item)
+
+    for item in ranked_items:
+        if len(selected) >= BRIEFING_ITEM_COUNT:
+            break
+
         if item not in selected:
             selected.append(item)
 
-    return selected[:5]
+    return selected[:BRIEFING_ITEM_COUNT]
 
 
 def generate_deep_research_sections(item):
