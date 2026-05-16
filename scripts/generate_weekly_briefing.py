@@ -206,18 +206,17 @@ def topic_match_score(title, summary):
     score += tier_1_hits * 8
     score += tier_2_hits * 3
     score += tier_3_hits * 1
-    score -= negative_hits * 5
+    score -= negative_hits * 4
 
     if tier_1_hits == 0 and tier_3_hits > 0:
-        score -= 6
+        score -= 2
 
     return max(score, 0), tier_1_hits, tier_2_hits, tier_3_hits
 
 
 def relevance_score(title, summary, source_name):
     source_score = SOURCE_WEIGHTS.get(source_name, 1)
-    topic_score, tier_1_hits, tier_2_hits, tier_3_hits = topic_match_score(title, summary)
-
+    topic_score, _, _, _ = topic_match_score(title, summary)
     return max(source_score + topic_score, 0)
 
 
@@ -322,17 +321,21 @@ Generic central bank content should score low unless it directly connects to AI 
     except Exception:
         print(f"Could not parse strategic score for: {item['title']}")
         print(f"Raw score: {raw_score}")
-        return 1
+        return 3
 
 
 def collect_recent_items():
-    cutoff = datetime.now(timezone.utc) - timedelta(days=7)
+    cutoff_days = 14
+    cutoff = datetime.now(timezone.utc) - timedelta(days=cutoff_days)
     items = []
 
     for source in SOURCES:
         feed = feedparser.parse(source["url"])
 
-        for entry in feed.entries[:25]:
+        if getattr(feed, "bozo", False):
+            print(f"Feed warning for {source['name']}: {getattr(feed, 'bozo_exception', 'Unknown feed issue')}")
+
+        for entry in feed.entries[:30]:
             published = parse_date(entry)
 
             if published < cutoff:
@@ -343,7 +346,7 @@ def collect_recent_items():
             summary = clean_text(entry.get("summary", "No summary available."))[:1200]
 
             base_score = relevance_score(title, summary, source["name"])
-            topic_score_value, tier_1_hits, tier_2_hits, tier_3_hits = topic_match_score(title, summary)
+            _, tier_1_hits, tier_2_hits, tier_3_hits = topic_match_score(title, summary)
 
             item_data = {
                 "title": title,
@@ -361,7 +364,7 @@ def collect_recent_items():
                 + (strategic_score * 6)
                 + (tier_1_hits * 10)
                 + (tier_2_hits * 3)
-                - (tier_3_hits * 2 if tier_1_hits == 0 else 0)
+                - (tier_3_hits if tier_1_hits == 0 else 0)
             )
 
             items.append({
@@ -379,32 +382,57 @@ def collect_recent_items():
                 "tier_3_hits": tier_3_hits,
             })
 
+    print(f"Total collected items before ranking: {len(items)}")
+
+    if not items:
+        print("No RSS items collected within cutoff window.")
+        return []
+
     items.sort(key=lambda x: (x["score"], x["published"]), reverse=True)
+
+    print("Top ranked candidates:")
+    for item in items[:10]:
+        print(
+            f"SCORE={item['score']} | "
+            f"STRATEGIC={item['strategic_score']} | "
+            f"T1={item['tier_1_hits']} | "
+            f"T2={item['tier_2_hits']} | "
+            f"T3={item['tier_3_hits']} | "
+            f"SOURCE={item['source']} | "
+            f"TITLE={item['title']}"
+        )
 
     selected = []
 
+    # First, prefer true infrastructure-heavy signals.
     for item in items:
-        if item["tier_1_hits"] > 0 and item["strategic_score"] >= 5:
+        if item["tier_1_hits"] >= 1 and item["strategic_score"] >= 4:
             selected.append(item)
 
-        if len(selected) == 5:
-            return selected
+        if len(selected) >= 3:
+            break
 
-    for item in items:
-        if item not in selected and item["strategic_score"] >= 6:
-            selected.append(item)
-
-        if len(selected) == 5:
-            return selected
-
+    # Then include broader AI economy signals.
     for item in items:
         if item not in selected and item["strategic_score"] >= 4:
             selected.append(item)
 
-        if len(selected) == 5:
+        if len(selected) >= 5:
             break
 
-    return selected
+    # Absolute fallback: never publish an empty briefing if RSS items exist.
+    if len(selected) == 0:
+        print("No strong strategic matches found. Falling back to top scored items.")
+        selected = items[:5]
+
+    # If fewer than 5 passed the filters, fill remaining slots from top ranked items.
+    for item in items:
+        if len(selected) >= 5:
+            break
+        if item not in selected:
+            selected.append(item)
+
+    return selected[:5]
 
 
 def generate_deep_research_sections(item):
