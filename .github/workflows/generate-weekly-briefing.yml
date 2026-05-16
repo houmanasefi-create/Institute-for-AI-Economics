@@ -31,7 +31,7 @@ jobs:
         run: |
           python scripts/generate_weekly_briefing.py
 
-            - name: Save changes back to GitHub
+      - name: Save changes back to GitHub
         run: |
           git config user.name "Institute Briefing Bot"
           git config user.email "bot@instituteofaieconomics.org"
