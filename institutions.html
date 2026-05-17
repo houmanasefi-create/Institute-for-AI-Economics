@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Adoption Economics | Institute for AI Economics</title>
+  <meta name="description" content="A lightweight AI workflow ROI calculator for measuring adoption, workflow redesign, governance, and labor value." />
+  <link rel="canonical" href="https://www.instituteofaieconomics.org/institutions.html" />
+  <meta property="og:title" content="AI Adoption Economics | Institute for AI Economics" />
+  <meta property="og:description" content="Estimate AI workflow ROI and understand why adoption economics depends on workflow redesign, governance, and measurement." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="index.html">Institute for<br>AI Economics</a>
+      <a class="btn btn-primary" href="mailto:houman.asefi@gmail.com?subject=Institute%20for%20AI%20Economics%20Enquiry">Contact</a>
+    </div>
+  </header>
+  <nav class="navband" aria-label="Main navigation">
+    <div class="container navband-inner">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="./weekly-briefings/index.html">Weekly Briefings</a>
+      <a href="infrastructure.html">Infrastructure</a>
+      <a href="institutions.html">Institutions</a>
+      <a href="distribution.html">Distribution</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Institutions tool</div>
+        <h1>AI ROI comes from workflow change, not tools alone.</h1>
+        <p>Organizations get value when AI changes work: adoption, governance, enablement, measurement, and decision rights. The calculator below estimates whether the workflow case is stronger than the tooling bill.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid-2">
+        <div class="card">
+          <div class="tag">Calculator</div>
+          <h2 class="section-title">AI Workflow ROI Calculator</h2>
+          <div class="calculator-form" aria-label="AI Workflow ROI Calculator inputs">
+            <label for="inst-employees">Number of employees affected</label>
+            <input id="inst-employees" type="number" inputmode="numeric" min="0" step="1" value="100" />
+            <label for="inst-salary">Average loaded annual salary</label>
+            <input id="inst-salary" type="number" inputmode="decimal" min="0" step="1000" value="120000" />
+            <label for="inst-hours">Hours saved per employee per week</label>
+            <input id="inst-hours" type="number" inputmode="decimal" min="0" step="0.5" value="3" />
+            <label for="inst-adoption">Adoption rate percentage</label>
+            <input id="inst-adoption" type="number" inputmode="decimal" min="0" max="100" step="1" value="50" />
+            <label for="inst-monthly-cost">Monthly AI/tooling cost</label>
+            <input id="inst-monthly-cost" type="number" inputmode="decimal" min="0" step="100" value="5000" />
+            <label for="inst-implementation-cost">Implementation cost</label>
+            <input id="inst-implementation-cost" type="number" inputmode="decimal" min="0" step="1000" value="25000" />
+            <button class="btn btn-primary" id="inst-calculate" type="button">Calculate workflow ROI</button>
+          </div>
+        </div>
+        <div class="card calculator-output" aria-live="polite">
+          <div class="tag">Output</div>
+          <h3>Estimated value</h3>
+          <div class="metric-row"><span>Monthly labor value unlocked</span><strong id="inst-monthly-labor">—</strong></div>
+          <div class="metric-row"><span>Annual labor value unlocked</span><strong id="inst-annual-labor">—</strong></div>
+          <div class="metric-row"><span>Estimated annual tooling cost</span><strong id="inst-annual-tooling">—</strong></div>
+          <div class="metric-row"><span>First-year net value</span><strong id="inst-net-value">—</strong></div>
+          <div class="metric-row"><span>ROI multiple</span><strong id="inst-roi">—</strong></div>
+          <div class="interpretation">
+            <h4>What this means</h4>
+            <p id="inst-interpretation">Enter the workflow assumptions and calculate to see whether the next move is smaller proof, adoption design, or disciplined scale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft">
+      <div class="container grid-2">
+        <div class="card">
+          <h3>Next action</h3>
+          <p>Do not ask ‘which AI tool should we buy?’ Ask ‘which workflow changes when AI enters the operating model?’</p>
+        </div>
+        <div class="card">
+          <h3>Related links</h3>
+          <p><a class="text-link" href="./weekly-briefings/index.html">Read weekly institutional signals →</a></p>
+          <p><a class="text-link" href="./infrastructure.html">Explore infrastructure →</a></p>
+          <p><a class="text-link" href="./distribution.html">Explore distribution →</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© Institute for AI Economics 2026</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="./weekly-briefings/index.html">Weekly Briefings</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      function readNumber(id, fallback) {
+        var element = document.getElementById(id);
+        var value = element ? element.valueAsNumber : NaN;
+        return Number.isFinite(value) && value >= 0 ? value : fallback;
+      }
+      function dollars(value) {
+        return '$' + value.toLocaleString(undefined, { maximumFractionDigits: 0 });
+      }
+      function calculateInstitutions() {
+        var employees = readNumber('inst-employees', 0);
+        var salary = readNumber('inst-salary', 120000);
+        var hours = readNumber('inst-hours', 3);
+        var adoption = Math.min(readNumber('inst-adoption', 50), 100) / 100;
+        var monthlyCost = readNumber('inst-monthly-cost', 5000);
+        var implementationCost = readNumber('inst-implementation-cost', 25000);
+        var hourlyCost = salary / 2080;
+        var monthlyLaborValue = employees * hours * hourlyCost * 4.33 * adoption;
+        var annualLaborValue = monthlyLaborValue * 12;
+        var annualToolingCost = monthlyCost * 12;
+        var firstYearNetValue = annualLaborValue - annualToolingCost - implementationCost;
+        var denominator = annualToolingCost + implementationCost;
+        var roiMultiple = denominator > 0 ? annualLaborValue / denominator : 0;
+        var interpretation = 'The tool cost is ahead of adoption. Start smaller. Pick one workflow and prove usage before scaling spend.';
+        if (roiMultiple > 3) {
+          interpretation = 'This is worth scaling, but only if the organization can measure adoption and prevent local experiments from becoming disconnected pilots.';
+        } else if (roiMultiple >= 1) {
+          interpretation = 'There is value, but adoption is fragile. The next move is workflow redesign, enablement, and measurement.';
+        }
+        document.getElementById('inst-monthly-labor').textContent = dollars(monthlyLaborValue);
+        document.getElementById('inst-annual-labor').textContent = dollars(annualLaborValue);
+        document.getElementById('inst-annual-tooling').textContent = dollars(annualToolingCost);
+        document.getElementById('inst-net-value').textContent = dollars(firstYearNetValue);
+        document.getElementById('inst-roi').textContent = roiMultiple.toLocaleString(undefined, { maximumFractionDigits: 2 }) + 'x';
+        document.getElementById('inst-interpretation').textContent = interpretation;
+      }
+      document.getElementById('inst-calculate').addEventListener('click', calculateInstitutions);
+      calculateInstitutions();
+    }());
+  </script>
+</body>
+</html>

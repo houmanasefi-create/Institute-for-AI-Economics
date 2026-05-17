@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Distribution Economics | Institute for AI Economics</title>
+  <meta name="description" content="A lightweight AI traffic exposure calculator for estimating search disruption, AI visibility risk, and revenue exposure." />
+  <link rel="canonical" href="https://www.instituteofaieconomics.org/distribution.html" />
+  <meta property="og:title" content="AI Distribution Economics | Institute for AI Economics" />
+  <meta property="og:description" content="Estimate how AI interfaces may affect demand, trust, discovery, search traffic, and revenue exposure." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="index.html">Institute for<br>AI Economics</a>
+      <a class="btn btn-primary" href="mailto:houman.asefi@gmail.com?subject=Institute%20for%20AI%20Economics%20Enquiry">Contact</a>
+    </div>
+  </header>
+  <nav class="navband" aria-label="Main navigation">
+    <div class="container navband-inner">
+      <a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="./weekly-briefings/index.html">Weekly Briefings</a>
+      <a href="infrastructure.html">Infrastructure</a>
+      <a href="institutions.html">Institutions</a>
+      <a href="distribution.html">Distribution</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Distribution tool</div>
+        <h1>AI changes who controls discovery.</h1>
+        <p>When AI interfaces answer, summarize, recommend, and compare, demand can move before a visitor reaches your site. The calculator below estimates how exposed search-led distribution is to AI disruption.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid-2">
+        <div class="card">
+          <div class="tag">Calculator</div>
+          <h2 class="section-title">AI Traffic Exposure Calculator</h2>
+          <div class="calculator-form" aria-label="AI Traffic Exposure Calculator inputs">
+            <label for="dist-visits">Monthly organic search visits</label>
+            <input id="dist-visits" type="number" inputmode="numeric" min="0" step="1" value="10000" />
+            <label for="dist-search-share">Percentage of traffic from Google/search</label>
+            <input id="dist-search-share" type="number" inputmode="decimal" min="0" max="100" step="1" value="60" />
+            <label for="dist-disruption">Expected AI search disruption percentage</label>
+            <input id="dist-disruption" type="number" inputmode="decimal" min="0" max="100" step="1" value="20" />
+            <label for="dist-conversion">Estimated conversion rate percentage</label>
+            <input id="dist-conversion" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="2" />
+            <label for="dist-customer-value">Average customer value</label>
+            <input id="dist-customer-value" type="number" inputmode="decimal" min="0" step="10" value="500" />
+            <button class="btn btn-primary" id="dist-calculate" type="button">Calculate exposure</button>
+          </div>
+        </div>
+        <div class="card calculator-output" aria-live="polite">
+          <div class="tag">Output</div>
+          <h3>Estimated exposure</h3>
+          <div class="metric-row"><span>Traffic at risk</span><strong id="dist-traffic-risk">—</strong></div>
+          <div class="metric-row"><span>Monthly leads/customers at risk</span><strong id="dist-customers-risk">—</strong></div>
+          <div class="metric-row"><span>Revenue exposure</span><strong id="dist-revenue-risk">—</strong></div>
+          <div class="metric-row"><span>Exposure level</span><strong id="dist-exposure-level">—</strong></div>
+          <div class="interpretation">
+            <h4>What this means</h4>
+            <p id="dist-interpretation">Enter the traffic assumptions and calculate to see whether AI search is a visibility issue or a strategic distribution risk.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft">
+      <div class="container grid-2">
+        <div class="card">
+          <h3>Next action</h3>
+          <p>Do not only ask how much traffic you get. Ask who explains your brand when users stop clicking links.</p>
+        </div>
+        <div class="card">
+          <h3>Related links</h3>
+          <p><a class="text-link" href="./weekly-briefings/index.html">Read weekly distribution signals →</a></p>
+          <p><a class="text-link" href="./infrastructure.html">Explore infrastructure →</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© Institute for AI Economics 2026</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="./weekly-briefings/index.html">Weekly Briefings</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      function readNumber(id, fallback) {
+        var element = document.getElementById(id);
+        var value = element ? element.valueAsNumber : NaN;
+        return Number.isFinite(value) && value >= 0 ? value : fallback;
+      }
+      function calculateDistribution() {
+        var visits = readNumber('dist-visits', 0);
+        var searchShare = Math.min(readNumber('dist-search-share', 60), 100) / 100;
+        var disruption = Math.min(readNumber('dist-disruption', 20), 100) / 100;
+        var conversion = Math.min(readNumber('dist-conversion', 2), 100) / 100;
+        var customerValue = readNumber('dist-customer-value', 500);
+        var searchTraffic = visits * searchShare;
+        var trafficAtRisk = searchTraffic * disruption;
+        var customersAtRisk = trafficAtRisk * conversion;
+        var revenueExposure = customersAtRisk * customerValue;
+        var atRiskShare = visits > 0 ? trafficAtRisk / visits : 0;
+        var level = 'Low exposure';
+        var interpretation = 'You have some insulation. The next move is entity authority and citation coverage.';
+        if (atRiskShare >= 0.25) {
+          level = 'High exposure';
+          interpretation = 'This is a strategic risk. If AI interfaces intercept demand, your traffic model can break before your product does.';
+        } else if (atRiskShare >= 0.10) {
+          level = 'Medium exposure';
+          interpretation = 'Your distribution layer is exposed. Start tracking AI visibility, not just SEO rankings.';
+        }
+        document.getElementById('dist-traffic-risk').textContent = trafficAtRisk.toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' visits';
+        document.getElementById('dist-customers-risk').textContent = customersAtRisk.toLocaleString(undefined, { maximumFractionDigits: 1 });
+        document.getElementById('dist-revenue-risk').textContent = '$' + revenueExposure.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        document.getElementById('dist-exposure-level').textContent = level;
+        document.getElementById('dist-interpretation').textContent = interpretation;
+      }
+      document.getElementById('dist-calculate').addEventListener('click', calculateDistribution);
+      calculateDistribution();
+    }());
+  </script>
+</body>
+</html>
