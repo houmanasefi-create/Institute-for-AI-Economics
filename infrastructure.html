@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Infrastructure Economics | Institute for AI Economics</title>
-  <meta name="description" content="A lightweight AI datacenter electricity calculator for estimating compute, power, datacenter, and grid exposure." />
+  <title>AI Infrastructure Power Index | Institute for AI Economics</title>
+  <meta name="description" content="A quarterly benchmark ranking countries by their ability to control the physical infrastructure of artificial intelligence: compute, energy, data centres, capital, and sovereignty." />
   <link rel="canonical" href="https://www.instituteofaieconomics.org/infrastructure.html" />
-  <meta property="og:title" content="AI Infrastructure Economics | Institute for AI Economics" />
-  <meta property="og:description" content="Estimate AI datacenter electricity demand and understand when compute becomes an energy, grid, and capital allocation problem." />
+  <meta property="og:title" content="AI Infrastructure Power Index | Institute for AI Economics" />
+  <meta property="og:description" content="Rank countries by their ability to build, power, control, and govern AI infrastructure." />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
@@ -30,59 +30,123 @@
     </div>
   </nav>
 
-  <main>
-    <section class="hero">
+  <main class="infrastructure-index">
+    <section class="hero infra-hero">
       <div class="container">
-        <div class="eyebrow">Infrastructure tool</div>
-        <h1>AI infrastructure is compute plus power.</h1>
-        <p>AI capacity is constrained by GPUs, chips, datacenters, electricity contracts, cooling, interconnection queues, and grid reliability. The calculator below turns a GPU plan into a power and cost estimate.</p>
+        <div class="eyebrow">Infrastructure benchmark</div>
+        <h1>AI Infrastructure Power Index</h1>
+        <p>A quarterly benchmark ranking countries by their ability to control the physical infrastructure of artificial intelligence.</p>
+        <div class="infra-thesis-card">
+          <strong>Core thesis:</strong> AI power is no longer only about models. It is about compute, energy, data centres, capital, and sovereignty.
+        </div>
+      </div>
+    </section>
+
+    <section class="infra-section-tight">
+      <div class="container">
+        <div class="infra-section-header">
+          <div>
+            <div class="tag">Initial illustrative scores</div>
+            <h2 class="section-title">Country ranking</h2>
+          </div>
+          <p class="infra-update-note">Rrankings will be updated quarterly using public datasets.</p>
+        </div>
+        <div class="infra-table-wrap" role="region" aria-label="AI Infrastructure Power Index ranking table" tabindex="0">
+          <table class="infra-ranking-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Country</th>
+                <th>Total Score</th>
+                <th>Compute Capacity</th>
+                <th>Energy Advantage</th>
+                <th>Data Centre Scale</th>
+                <th>Capital Intensity</th>
+                <th>Sovereignty Risk</th>
+                <th>Quarterly Movement</th>
+              </tr>
+            </thead>
+            <tbody id="infra-ranking-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft">
+      <div class="container">
+        <div class="infra-section-header">
+          <div>
+            <div class="tag">Heat map</div>
+            <h2 class="section-title">Total AI infrastructure score</h2>
+          </div>
+          <p class="lede">A policy-map view of relative infrastructure power across the initial country set.</p>
+        </div>
+        <div class="infra-map-card">
+          <svg class="infra-world-map" viewBox="0 0 1120 560" role="img" aria-labelledby="infra-map-title infra-map-desc">
+            <title id="infra-map-title">World map coloured by AI infrastructure score</title>
+            <desc id="infra-map-desc">Countries in the initial AI Infrastructure Power Index dataset are shaded by total score.</desc>
+            <rect width="1120" height="560" fill="#f8fafc"></rect>
+            <path class="map-land" d="M120 160 C170 95 265 95 322 148 C364 187 340 250 286 270 C230 291 176 264 132 228 C96 198 89 178 120 160Z"></path>
+            <path class="map-land" d="M250 310 C315 270 405 292 420 362 C435 430 380 495 315 488 C260 482 215 435 220 382 C223 348 230 326 250 310Z"></path>
+            <path class="map-land" d="M475 120 C560 72 675 98 710 155 C742 208 682 244 590 235 C515 228 450 176 475 120Z"></path>
+            <path class="map-land" d="M520 238 C610 210 728 245 755 330 C780 408 708 468 610 447 C535 431 485 365 500 300 C505 276 510 252 520 238Z"></path>
+            <path class="map-land" d="M720 140 C825 85 990 112 1040 205 C1084 287 1010 355 900 340 C805 327 690 236 720 140Z"></path>
+            <path class="map-land" d="M850 365 C920 332 1005 365 1020 430 C1032 486 976 520 910 500 C858 484 824 400 850 365Z"></path>
+            <g id="infra-map-markers"></g>
+          </svg>
+          <div class="infra-map-legend" aria-label="Heat map legend">
+            <span>Lower score</span>
+            <i class="legend-swatch legend-low"></i>
+            <i class="legend-swatch legend-mid"></i>
+            <i class="legend-swatch legend-high"></i>
+            <span>Higher score</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="infra-section-header">
+          <div>
+            <div class="tag">Country cards</div>
+            <h2 class="section-title">Infrastructure profiles</h2>
+          </div>
+          <p class="lede">Each profile is structured for future quarterly reports, country pages, charts, CSV exports, and methodology updates.</p>
+        </div>
+        <div class="infra-country-grid" id="infra-country-cards"></div>
+      </div>
+    </section>
+
+    <section class="section-soft">
+      <div class="container grid-2 infra-method-grid">
+        <div>
+          <div class="tag">Methodology</div>
+          <h2 class="section-title">Scoring model</h2>
+          <p class="lede">Total Score = 100 points. The index measures the ability to build, power, control, and govern AI infrastructure. Sovereignty Risk is reverse-scored: lower dependency receives a higher score; higher dependency receives a lower score.</p>
+        </div>
+        <div class="infra-methodology-list" id="infra-methodology-list"></div>
       </div>
     </section>
 
     <section>
       <div class="container grid-2">
         <div class="card">
-          <div class="tag">Calculator</div>
-          <h2 class="section-title">AI Datacenter Electricity Calculator</h2>
-          <div class="calculator-form" aria-label="AI Datacenter Electricity Calculator inputs">
-            <label for="infra-gpu-count">GPU count</label>
-            <input id="infra-gpu-count" type="number" inputmode="numeric" min="0" step="1" value="1000" />
-            <label for="infra-gpu-watts">Average GPU power draw in watts</label>
-            <input id="infra-gpu-watts" type="number" inputmode="decimal" min="0" step="1" value="700" />
-            <label for="infra-utilization">Utilization percentage</label>
-            <input id="infra-utilization" type="number" inputmode="decimal" min="0" max="100" step="1" value="70" />
-            <label for="infra-pue">PUE</label>
-            <input id="infra-pue" type="number" inputmode="decimal" min="1" step="0.01" value="1.3" />
-            <label for="infra-price">Electricity price per kWh</label>
-            <input id="infra-price" type="number" inputmode="decimal" min="0" step="0.01" value="0.12" />
-            <button class="btn btn-primary" id="infra-calculate" type="button">Calculate electricity demand</button>
-          </div>
-        </div>
-        <div class="card calculator-output" aria-live="polite">
-          <div class="tag">Output</div>
-          <h3>Estimated load and cost</h3>
-          <div class="metric-row"><span>IT load</span><strong id="infra-it-load">—</strong></div>
-          <div class="metric-row"><span>Total facility load</span><strong id="infra-facility-load">—</strong></div>
-          <div class="metric-row"><span>Monthly energy usage</span><strong id="infra-monthly-mwh">—</strong></div>
-          <div class="metric-row"><span>Monthly electricity cost</span><strong id="infra-monthly-cost">—</strong></div>
-          <div class="interpretation">
-            <h4>What this means</h4>
-            <p id="infra-interpretation">Enter the cluster assumptions and calculate to see whether this is a workload issue, an infrastructure issue, or a grid and capital allocation issue.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-soft">
-      <div class="container grid-2">
-        <div class="card">
-          <h3>Next action</h3>
-          <p>Use this number to ask: who controls the power contract, who absorbs the energy cost, and who gets priority access when the grid is constrained?</p>
+          <div class="tag">Data sources</div>
+          <h2 class="section-title infra-card-title">Future source categories</h2>
+          <ul class="infra-source-list" id="infra-source-list"></ul>
         </div>
         <div class="card">
-          <h3>Related links</h3>
-          <p><a class="text-link" href="./weekly-briefings/index.html">Read weekly infrastructure signals →</a></p>
-          <p><a class="text-link" href="./institutions.html">Explore institutions →</a></p>
+          <div class="tag">Export-ready structure</div>
+          <h2 class="section-title infra-card-title">Quarterly outputs</h2>
+          <p>The local data model is structured so the same country records and scoring dimensions can later generate:</p>
+          <ul class="infra-source-list">
+            <li>quarterly PDF report</li>
+            <li>country profile pages</li>
+            <li>charts</li>
+            <li>downloadable CSV</li>
+            <li>methodology page</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -100,38 +164,94 @@
   </footer>
   <script>
     (function () {
-      function readNumber(id, fallback) {
-        var element = document.getElementById(id);
-        var value = element ? element.valueAsNumber : NaN;
-        return Number.isFinite(value) && value >= 0 ? value : fallback;
+      var mapCoordinates = {
+        US: [225, 205], CN: [850, 238], AE: [670, 290], SG: [810, 355], FR: [542, 205], GB: [510, 176], CA: [225, 130], AU: [890, 435], JP: [960, 245], DE: [560, 184], KR: [920, 235], SA: [660, 315], IN: [760, 315], NL: [545, 176], IE: [494, 180]
+      };
+
+      function scoreClass(score) {
+        if (score >= 75) return 'score-high';
+        if (score >= 62) return 'score-mid-high';
+        if (score >= 56) return 'score-mid';
+        return 'score-low';
       }
-      function formatNumber(value, digits) {
-        return value.toLocaleString(undefined, { maximumFractionDigits: digits });
+
+      function movementLabel(country) {
+        if (country.quarterlyMovement === 'up') return '<span class="movement up">▲ +' + country.movementDelta + '</span>';
+        if (country.quarterlyMovement === 'down') return '<span class="movement down">▼ ' + country.movementDelta + '</span>';
+        return '<span class="movement flat">▬ 0</span>';
       }
-      function calculateInfrastructure() {
-        var gpuCount = readNumber('infra-gpu-count', 0);
-        var gpuWatts = readNumber('infra-gpu-watts', 700);
-        var utilization = Math.min(readNumber('infra-utilization', 70), 100);
-        var pue = Math.max(readNumber('infra-pue', 1.3), 1);
-        var price = readNumber('infra-price', 0.12);
-        var itLoadMw = gpuCount * gpuWatts * (utilization / 100) / 1000000;
-        var facilityLoadMw = itLoadMw * pue;
-        var monthlyMwh = facilityLoadMw * 24 * 30;
-        var monthlyCost = monthlyMwh * 1000 * price;
-        var interpretation = 'This is still a small cluster. The issue is not grid negotiation yet; it is utilization, workload design, and cloud vs owned economics.';
-        if (facilityLoadMw >= 10) {
-          interpretation = 'This is no longer a software decision. This is an energy, grid, and capital allocation problem.';
-        } else if (facilityLoadMw >= 1) {
-          interpretation = 'This is entering serious infrastructure territory. Power contracts, site selection, cooling, and uptime start to matter.';
-        }
-        document.getElementById('infra-it-load').textContent = formatNumber(itLoadMw, 3) + ' MW';
-        document.getElementById('infra-facility-load').textContent = formatNumber(facilityLoadMw, 3) + ' MW';
-        document.getElementById('infra-monthly-mwh').textContent = formatNumber(monthlyMwh, 1) + ' MWh';
-        document.getElementById('infra-monthly-cost').textContent = '$' + formatNumber(monthlyCost, 0);
-        document.getElementById('infra-interpretation').textContent = interpretation;
+
+      function listItems(items) {
+        return items.map(function (item) { return '<li>' + item + '</li>'; }).join('');
       }
-      document.getElementById('infra-calculate').addEventListener('click', calculateInfrastructure);
-      calculateInfrastructure();
+
+      function renderTable(countries) {
+        document.getElementById('infra-ranking-body').innerHTML = countries.map(function (country) {
+          return '<tr>' +
+            '<td><strong>#' + country.rank + '</strong></td>' +
+            '<td><span class="country-name">' + country.country + '</span></td>' +
+            '<td><span class="score-pill ' + scoreClass(country.totalScore) + '">' + country.totalScore + '</span></td>' +
+            '<td>' + country.computeCapacity + '/25</td>' +
+            '<td>' + country.energyAdvantage + '/25</td>' +
+            '<td>' + country.dataCentreScale + '/20</td>' +
+            '<td>' + country.capitalIntensity + '/15</td>' +
+            '<td>' + country.sovereigntyRisk + '/15</td>' +
+            '<td>' + movementLabel(country) + '</td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      function renderMap(countries) {
+        document.getElementById('infra-map-markers').innerHTML = countries.map(function (country) {
+          var xy = mapCoordinates[country.code];
+          var radius = 10 + (country.totalScore / 100) * 16;
+          return '<g class="map-marker" transform="translate(' + xy[0] + ' ' + xy[1] + ')" tabindex="0" role="img" aria-label="' + country.country + ', score ' + country.totalScore + '">' +
+            '<circle r="' + radius.toFixed(1) + '" class="' + scoreClass(country.totalScore) + '"></circle>' +
+            '<text y="4">' + country.code + '</text>' +
+            '<title>' + country.country + ': ' + country.totalScore + '</title>' +
+          '</g>';
+        }).join('');
+      }
+
+      function renderCards(countries) {
+        document.getElementById('infra-country-cards').innerHTML = countries.map(function (country) {
+          return '<article class="infra-country-card card">' +
+            '<div class="country-card-top"><div><span class="tag">#' + country.rank + ' · ' + country.region + '</span><h3>' + country.country + '</h3></div><span class="score-pill ' + scoreClass(country.totalScore) + '">' + country.totalScore + '</span></div>' +
+            '<div class="country-card-block"><h4>Strengths</h4><ul>' + listItems(country.strengths) + '</ul></div>' +
+            '<div class="country-card-block"><h4>Weaknesses</h4><ul>' + listItems(country.weaknesses) + '</ul></div>' +
+            '<div class="risk-box"><h4>Strategic risk</h4><p>' + country.strategicRisk + '</p></div>' +
+            '<p class="verdict"><strong>Verdict:</strong> ' + country.verdict + '</p>' +
+          '</article>';
+        }).join('');
+      }
+
+      function renderMethodology(scoringModel) {
+        document.getElementById('infra-methodology-list').innerHTML = scoringModel.map(function (dimension) {
+          return '<article class="method-card">' +
+            '<div class="method-card-head"><h3>' + dimension.label + '</h3><strong>' + dimension.points + ' points</strong></div>' +
+            (dimension.reverseScored ? '<p class="reverse-note">Reverse-scored: lower dependency = higher score.</p>' : '') +
+            '<ul>' + listItems(dimension.measures) + '</ul>' +
+          '</article>';
+        }).join('');
+      }
+
+      function renderSources(sources) {
+        document.getElementById('infra-source-list').innerHTML = listItems(sources);
+      }
+
+      fetch('data/ai-infrastructure-power-index.json')
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          var countries = data.countries.slice().sort(function (a, b) { return a.rank - b.rank; });
+          renderTable(countries);
+          renderMap(countries);
+          renderCards(countries);
+          renderMethodology(data.scoringModel);
+          renderSources(data.sourceCategories);
+        })
+        .catch(function () {
+          document.getElementById('infra-ranking-body').innerHTML = '<tr><td colspan="9">Infrastructure index data could not be loaded.</td></tr>';
+        });
     }());
   </script>
 </body>
