@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" role="img" aria-labelledby="world-map-title world-map-desc">
+  <title id="world-map-title">Blank world political map</title>
+  <desc id="world-map-desc">A clean, unlabeled world map base with light land and subtle country borders for dashboard overlays.</desc>
+  <!--
+    Static base map for the AI Infrastructure Power Index.
+    Styling is based on institutional dashboard maps; boundary geometry is a lightweight,
+    simplified public-domain world-map layer intended only as a visual basemap.
+  -->
+  <defs>
+    <filter id="land-shadow" x="-6%" y="-6%" width="112%" height="112%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#8fa5bb" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1120" height="560" rx="18" fill="#eef3f8"/>
+  <g id="land" fill="#fbfdff" stroke="#cdd9e5" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" filter="url(#land-shadow)">
+    <path id="north-america" d="M84 122l34-29 57-19 72 3 68 20 41 31 28 42 41 28 29 42-7 43-33 31-48 6-22 31-34 9-21 45-36 23-44-3-20-31-10-48-35-19-20-33-49-19-28-35-45-9-30-31 7-47z"/>
+    <path id="greenland" d="M260 42l59-22 83 3 64 22 31 34-19 31-64 16-77-2-65 20-44-20-12-43z"/>
+    <path id="central-america" d="M263 320l33 2 30 19 31 6 22 22-19 18-42-9-31-17-35-4-25-18 9-17z"/>
+    <path id="south-america" d="M332 373l49 20 24 39 27 42-8 62-31 65-40 47-43-8-23-48-14-62-25-50 8-46 30-23z"/>
+    <path id="europe" d="M525 111l36-22 57-2 37 22 44 4 25 28-16 31-42-2-23 25-51-4-31 22-52-12-39 7-29-24 33-38z"/>
+    <path id="africa" d="M558 213l55 8 49 31 54 38 33 62-9 75-36 64-49 44-56-8-37-43-24-58-34-49-28-63 13-57z"/>
+    <path id="asia" d="M667 99l91-37 117-2 83 23 73 30 60 48 26 61-31 59-69 31-87-4-75-29-67-1-47 29-56-16-52-47-47-39-20-55z"/>
+    <path id="india-se-asia" d="M771 278l43 13 35 31 15 54-30 48-41-14-34-43-17-54z"/>
+    <path id="japan" d="M983 209l17-20 21 18-9 25-22 11z"/>
+    <path id="philippines" d="M891 337l19 16 1 27-17 15-19-19z"/>
+    <path id="indonesia" d="M821 405l48 14 66 2 75 24 44 4 5 26-94 6-88-18-67-16z"/>
+    <path id="australia" d="M911 458l60-28 74 7 48 42-6 55-54 43-81-4-57-35-22-45z"/>
+    <path id="new-zealand" d="M1044 607l18-12 19 16-17 18z"/>
+    <path id="uk-ireland" d="M515 128l18-18 19 20-5 31-26 4z"/>
+    <path id="madagascar" d="M714 500l18 32-8 53-24 17-12-47z"/>
+  </g>
+  <g id="borders" fill="none" stroke="#d9e2ec" stroke-width="0.75" stroke-linecap="round" opacity="0.9">
+    <path d="M131 96l28 48 55 5 50 36 54 18 47 36 45 11"/>
+    <path d="M197 126l-13 65-35 44"/>
+    <path d="M258 150l-22 61 8 72"/>
+    <path d="M317 116l-15 61 20 59 37 31"/>
+    <path d="M289 348l20 61-19 53"/>
+    <path d="M358 390l-21 61 18 70"/>
+    <path d="M484 149l58 13 51-19 49 8 55 17"/>
+    <path d="M543 116l9 55 37 24 43-8 37-29"/>
+    <path d="M568 219l-25 45 44 34-5 74"/>
+    <path d="M621 226l41 46 14 72 43 49"/>
+    <path d="M662 117l63 43 76-2 78 38 86 14 86 46"/>
+    <path d="M740 78l38 75-8 126"/>
+    <path d="M846 67l-26 88 28 101"/>
+    <path d="M931 81l-23 82 42 103"/>
+    <path d="M1017 112l-40 71 53 95"/>
+    <path d="M775 296l45 25 25 44"/>
+    <path d="M842 421l55 18 65 4 89 27"/>
+    <path d="M945 447l10 48 53 41"/>
+  </g>
+</svg>
