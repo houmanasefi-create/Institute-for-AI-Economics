@@ -83,9 +83,9 @@
         </div>
         <div class="infra-map-card">
           <svg class="infra-world-map" viewBox="0 0 1120 560" role="img" aria-labelledby="infra-map-title infra-map-desc">
-            <title id="infra-map-title">World map coloured by AI infrastructure score</title>
-            <desc id="infra-map-desc">Countries in the initial AI Infrastructure Power Index dataset are shaded by total score.</desc>
-            <image href="assets/infrastructure-world-map.svg" width="1120" height="560" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></image>
+            <title id="infra-map-title">World map with AI infrastructure score markers</title>
+            <desc id="infra-map-desc">Countries in the initial AI Infrastructure Power Index dataset are shown as proportional latitude and longitude markers.</desc>
+            <image href="public/world-map.svg" width="1120" height="560" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></image>
             <g id="infra-map-markers"></g>
           </svg>
           <div class="infra-map-legend" aria-label="Heat map legend">
@@ -158,9 +158,31 @@
   </footer>
   <script>
     (function () {
-      var mapCoordinates = {
-        US: [255, 160], CN: [883, 172], AE: [728, 206], SG: [884, 277], FR: [563, 139], GB: [548, 112], CA: [230, 103], AU: [977, 358], JP: [989, 165], DE: [594, 122], KR: [958, 168], SA: [700, 207], IN: [802, 212], NL: [577, 104], IE: [522, 113]
+      var mapViewBox = { width: 1120, height: 560 };
+      var countryCoordinates = {
+        US: { latitude: 39.8283, longitude: -98.5795 },
+        CN: { latitude: 35.8617, longitude: 104.1954 },
+        JP: { latitude: 36.2048, longitude: 138.2529 },
+        KR: { latitude: 35.9078, longitude: 127.7669 },
+        SG: { latitude: 1.3521, longitude: 103.8198 },
+        IN: { latitude: 20.5937, longitude: 78.9629 },
+        AE: { latitude: 23.4241, longitude: 53.8478 },
+        SA: { latitude: 23.8859, longitude: 45.0792 },
+        GB: { latitude: 55.3781, longitude: -3.4360 },
+        FR: { latitude: 46.2276, longitude: 2.2137 },
+        DE: { latitude: 51.1657, longitude: 10.4515 },
+        NL: { latitude: 52.1326, longitude: 5.2913 },
+        IE: { latitude: 53.4129, longitude: -8.2439 },
+        CA: { latitude: 56.1304, longitude: -106.3468 },
+        AU: { latitude: -25.2744, longitude: 133.7751 }
       };
+
+      function projectLatLon(latitude, longitude) {
+        return [
+          ((longitude + 180) / 360) * mapViewBox.width,
+          ((90 - latitude) / 180) * mapViewBox.height
+        ];
+      }
 
       function scoreClass(score) {
         if (score >= 75) return 'score-high';
@@ -197,10 +219,13 @@
 
       function renderMap(countries) {
         document.getElementById('infra-map-markers').innerHTML = countries.map(function (country) {
-          var xy = mapCoordinates[country.code];
-          var radius = 10 + (country.totalScore / 100) * 16;
-          return '<g class="map-marker" transform="translate(' + xy[0] + ' ' + xy[1] + ')" tabindex="0" role="img" aria-label="' + country.country + ', score ' + country.totalScore + '">' +
-            '<circle r="' + radius.toFixed(1) + '" class="' + scoreClass(country.totalScore) + '"></circle>' +
+          var coordinates = countryCoordinates[country.code];
+          if (!coordinates) return '';
+          var xy = projectLatLon(coordinates.latitude, coordinates.longitude);
+          var radius = 8 + ((country.totalScore - 50) / 50) * 10;
+          var className = scoreClass(country.totalScore);
+          return '<g class="map-marker ' + className + '" transform="translate(' + xy[0].toFixed(1) + ' ' + xy[1].toFixed(1) + ')" tabindex="0" role="img" aria-label="' + country.country + ', score ' + country.totalScore + '">' +
+            '<circle r="' + radius.toFixed(1) + '" class="' + className + '"></circle>' +
             '<text y="4">' + country.code + '</text>' +
             '<title>' + country.country + ': ' + country.totalScore + '</title>' +
           '</g>';
