@@ -57,3 +57,36 @@ footer{padding:36px 0;border-top:1px solid #e0e6ec;background:#f7f9fb}.footer-in
 .publication-card h3{margin:0 0 8px;color:#173764}
 .publication-card p{margin:0 0 12px}
 .publication-links{display:flex;gap:14px;flex-wrap:wrap}
+
+/* AI Infrastructure Power Index */
+.infrastructure-index{background:#fff}
+.infra-hero{background:linear-gradient(135deg,#071427 0%,#10243f 58%,#173764 100%);padding-bottom:58px}
+.infra-thesis-card{max-width:920px;margin-top:28px;padding:18px 22px;border:1px solid rgba(255,255,255,.22);border-radius:16px;background:rgba(255,255,255,.08);color:#edf6ff;font-size:1.02rem}
+.infra-section-tight{padding-top:58px}
+.infra-section-header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:24px}
+.infra-section-header .section-title{margin-bottom:0}
+.infra-update-note{margin:0;max-width:360px;color:#173764;font-weight:800;background:#edf6fb;border:1px solid #d6e7f2;border-radius:14px;padding:12px 14px}
+.infra-table-wrap{overflow:auto;border:1px solid #dbe6f1;border-radius:18px;background:#fff;box-shadow:var(--shadow)}
+.infra-ranking-table{width:100%;border-collapse:collapse;min-width:1080px;font-size:.95rem}
+.infra-ranking-table th{position:sticky;top:0;background:#f4f7fa;color:#173764;text-align:left;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:14px 16px;border-bottom:1px solid #dbe6f1;white-space:nowrap}
+.infra-ranking-table td{padding:15px 16px;border-bottom:1px solid #e8eef4;color:#33455e;white-space:nowrap}
+.infra-ranking-table tr:last-child td{border-bottom:0}
+.infra-ranking-table tbody tr:hover{background:#fbfdff}
+.country-name{font-weight:800;color:#0d1726}
+.score-pill{display:inline-flex;min-width:46px;justify-content:center;align-items:center;border-radius:999px;padding:5px 10px;font-weight:900;color:#fff;background:#173764}
+.score-high{background:#173764;fill:#173764}
+.score-mid-high{background:#24679a;fill:#24679a}
+.score-mid{background:#51a6c8;fill:#51a6c8;color:#071427}
+.score-low{background:#b8d9e8;fill:#b8d9e8;color:#071427}
+.movement{font-weight:900;display:inline-flex;align-items:center;gap:4px}.movement.up{color:#0d6b45}.movement.down{color:#9f2e2e}.movement.flat{color:#59667a}
+.infra-map-card{background:#fff;border:1px solid #dde7f0;border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.infra-world-map{display:block;width:100%;height:auto;border:1px solid #e5edf4;border-radius:16px;background:#f8fafc}
+.map-land{fill:#e3eaf1;stroke:#d3dde7;stroke-width:2}
+.map-marker circle{stroke:#fff;stroke-width:3;filter:drop-shadow(0 9px 12px rgba(7,20,39,.18));opacity:.94}
+.map-marker text{font-size:12px;font-weight:900;text-anchor:middle;fill:#fff;pointer-events:none}.map-marker .score-mid text,.map-marker .score-low text{fill:#071427}
+.infra-map-legend{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:14px;color:#59667a;font-size:.9rem;font-weight:700}
+.legend-swatch{width:34px;height:12px;display:inline-block;border-radius:99px}.legend-low{background:#b8d9e8}.legend-mid{background:#51a6c8}.legend-high{background:#173764}
+.infra-country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.infra-country-card{box-shadow:none}.country-card-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:12px}.country-card-top h3{font-size:1.35rem;margin:0;color:#173764}.country-card-block{border-top:1px solid #e2eaf1;padding-top:12px;margin-top:12px}.country-card-block h4,.risk-box h4{margin:0 0 6px;color:#173764}.country-card-block ul,.method-card ul,.infra-source-list{margin:0;padding-left:20px;color:#33455e}.country-card-block li,.method-card li,.infra-source-list li{margin:6px 0}.risk-box{background:#f7f9fb;border:1px solid #dfe8f0;border-radius:14px;padding:14px;margin-top:14px}.risk-box p{color:#33455e}.verdict{border-left:4px solid #33a3db;padding-left:12px;margin-top:14px!important;color:#0d1726!important}
+.infra-method-grid{align-items:start}.infra-methodology-list{display:grid;gap:14px}.method-card{background:#fff;border:1px solid #dde7f0;border-radius:18px;padding:20px}.method-card-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.method-card h3{margin:0;color:#173764}.method-card strong{color:#173764;white-space:nowrap}.reverse-note{margin:8px 0 10px!important;color:#9f5a00!important;font-weight:800}.infra-card-title{font-size:clamp(1.65rem,3vw,2.4rem)}
+@media (max-width:900px){.infra-section-header{align-items:flex-start;flex-direction:column}.infra-map-legend{justify-content:flex-start;flex-wrap:wrap}.infra-ranking-table{font-size:.88rem}}
