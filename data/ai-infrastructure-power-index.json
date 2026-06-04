@@ -4,7 +4,7 @@
     "purpose": "Rank countries by their ability to build, power, control, and govern AI infrastructure.",
     "thesis": "AI power is no longer only about models. It is about compute, energy, data centres, capital, and sovereignty.",
     "period": "Initial illustrative baseline",
-    "updateNote": "Rrankings will be updated quarterly using public datasets.",
+    "updateNote": "Rankings will be updated quarterly using public datasets.",
     "maxScore": 100
   },
   "scoringModel": [
