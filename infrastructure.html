@@ -9,6 +9,30 @@
   <meta property="og:title" content="AI Infrastructure Economics | Institute for AI Economics" />
   <meta property="og:description" content="Estimate AI datacenter electricity demand and understand when compute becomes an energy, grid, and capital allocation problem." />
   <link rel="stylesheet" href="assets/site.css" />
+
+  <style>
+    .infra-index-section{background:#f7f9fb}
+    .infra-index-card{padding:0;overflow:hidden}
+    .infra-index-header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding:28px 28px 18px;border-bottom:1px solid #dde7f0;flex-wrap:wrap}
+    .infra-index-header h2{margin-bottom:10px}
+    .infra-index-header p{max-width:760px}
+    .infra-update-note{font-size:.92rem;color:#59667a;background:#f6f8fb;border:1px solid #dde7f0;border-radius:999px;padding:8px 13px;white-space:nowrap}
+    .infra-map-wrap{position:relative;aspect-ratio:2048/997;margin:24px 28px 12px;border:1px solid #dbe6f1;border-radius:18px;background:linear-gradient(180deg,#fff,#f8fbfd);box-shadow:inset 0 0 0 1px rgba(255,255,255,.65);overflow:hidden}
+    .infra-world-map{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;opacity:.88;filter:grayscale(1) saturate(.25) contrast(.88) brightness(1.08)}
+    .infra-map-wrap::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 44%,rgba(51,163,219,.08),transparent 52%);pointer-events:none}
+    .infra-bubble{position:absolute;z-index:2;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;border:2px solid #fff;box-shadow:0 10px 22px rgba(7,20,39,.18);font-size:.72rem;font-weight:800;color:#fff;letter-spacing:.02em}
+    .infra-bubble-high{background:#173764}.infra-bubble-mid{background:#33a3db}.infra-bubble-lower{background:#8ba0b8}
+    .infra-bubble small{display:block;font-size:.58rem;line-height:1;opacity:.88;font-weight:700}
+    .infra-bubble-label{display:grid;line-height:1;text-align:center}
+    .infra-map-caption{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:0 28px 26px;flex-wrap:wrap;color:#59667a;font-size:.92rem}
+    .infra-map-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .infra-map-legend span{display:inline-flex;align-items:center;gap:7px}
+    .infra-dot{width:12px;height:12px;border-radius:999px;display:inline-block}.infra-dot-high{background:#173764}.infra-dot-mid{background:#33a3db}.infra-dot-lower{background:#8ba0b8}
+    .infra-ranking-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 28px 28px}
+    .infra-ranking-card{background:#fff;border:1px solid #dde7f0;border-radius:16px;padding:16px}
+    .infra-ranking-card strong{display:block;color:#173764;margin-bottom:4px}.infra-ranking-card p{font-size:.94rem}
+    @media (max-width:900px){.infra-ranking-grid{grid-template-columns:1fr}.infra-update-note{white-space:normal}.infra-bubble{width:34px;height:34px;font-size:.63rem}.infra-bubble small{font-size:.5rem}.infra-map-wrap{margin:20px 18px 10px}.infra-index-header,.infra-ranking-grid{padding-left:18px;padding-right:18px}.infra-map-caption{margin-left:18px;margin-right:18px}}
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -68,6 +92,65 @@
           <div class="interpretation">
             <h4>What this means</h4>
             <p id="infra-interpretation">Enter the cluster assumptions and calculate to see whether this is a workload issue, an infrastructure issue, or a grid and capital allocation issue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="infra-index-section" aria-labelledby="infra-power-index-title">
+      <div class="container">
+        <div class="card infra-index-card">
+          <div class="infra-index-header">
+            <div>
+              <div class="tag">AI Infrastructure Power Index</div>
+              <h2 class="section-title" id="infra-power-index-title">Global AI infrastructure capacity map</h2>
+              <p class="lede">A policy-oriented view of where compute, chips, datacenter power, cloud capacity, and sovereign infrastructure capability are concentrated.</p>
+            </div>
+            <div class="infra-update-note">Rankings will be updated quarterly using public datasets.</div>
+          </div>
+
+          <div class="infra-map-wrap" role="img" aria-label="World map showing AI infrastructure score bubbles across North America, Europe, Asia, the Middle East, and Australia">
+            <img class="infra-world-map" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Blank_world_map_Equal_Earth_projection.svg" alt="Blank world map with recognizable country borders and continents" loading="lazy" />
+            <span class="infra-bubble infra-bubble-high" style="left:22.5%;top:38.5%"><span class="infra-bubble-label">US<small>92</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:20.6%;top:28.5%"><span class="infra-bubble-label">CA<small>68</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:46.5%;top:35.5%"><span class="infra-bubble-label">UK<small>71</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:47.8%;top:42%"><span class="infra-bubble-label">FR<small>66</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:49.6%;top:39%"><span class="infra-bubble-label">DE<small>69</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:49.1%;top:34.5%"><span class="infra-bubble-label">NL<small>63</small></span></span>
+            <span class="infra-bubble infra-bubble-lower" style="left:45%;top:38.3%"><span class="infra-bubble-label">IE<small>58</small></span></span>
+            <span class="infra-bubble infra-bubble-high" style="left:72%;top:45.5%"><span class="infra-bubble-label">CN<small>86</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:79.8%;top:43.5%"><span class="infra-bubble-label">JP<small>67</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:77.3%;top:42%"><span class="infra-bubble-label">KR<small>64</small></span></span>
+            <span class="infra-bubble infra-bubble-lower" style="left:73.8%;top:57.6%"><span class="infra-bubble-label">SG<small>55</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:65.1%;top:52.5%"><span class="infra-bubble-label">IN<small>62</small></span></span>
+            <span class="infra-bubble infra-bubble-lower" style="left:59.6%;top:50.2%"><span class="infra-bubble-label">AE<small>57</small></span></span>
+            <span class="infra-bubble infra-bubble-lower" style="left:57.4%;top:51.8%"><span class="infra-bubble-label">SA<small>54</small></span></span>
+            <span class="infra-bubble infra-bubble-mid" style="left:81.2%;top:74%"><span class="infra-bubble-label">AU<small>61</small></span></span>
+          </div>
+
+          <div class="infra-map-caption">
+            <div class="infra-map-legend" aria-label="Score legend">
+              <span><i class="infra-dot infra-dot-high"></i>Higher score</span>
+              <span><i class="infra-dot infra-dot-mid"></i>Middle score</span>
+              <span><i class="infra-dot infra-dot-lower"></i>Lower score</span>
+            </div>
+            <div>Country scores combine compute scale, energy readiness, chip access, cloud depth, and sovereign infrastructure capacity.</div>
+          </div>
+
+          <div class="infra-ranking-grid" aria-label="Infrastructure power index signals">
+            <div class="infra-ranking-card">
+              <strong>High-score infrastructure blocs</strong>
+              <p>Dense hyperscale cloud regions, frontier accelerator access, and grid-scale datacenter investment.</p>
+            </div>
+            <div class="infra-ranking-card">
+              <strong>Middle-score infrastructure blocs</strong>
+              <p>Strong cloud or semiconductor positions with constraints in power, permitting, or domestic scale.</p>
+            </div>
+            <div class="infra-ranking-card">
+              <strong>Lower-score monitored blocs</strong>
+              <p>Important regional hubs where energy contracts, imports, or scale dependencies shape AI capacity.</p>
+            </div>
           </div>
         </div>
       </div>
