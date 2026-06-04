@@ -79,14 +79,16 @@ footer{padding:36px 0;border-top:1px solid #e0e6ec;background:#f7f9fb}.footer-in
 .score-mid{background:#51a6c8;fill:#51a6c8;color:#071427}
 .score-low{background:#b8d9e8;fill:#b8d9e8;color:#071427}
 .movement{font-weight:900;display:inline-flex;align-items:center;gap:4px}.movement.up{color:#0d6b45}.movement.down{color:#9f2e2e}.movement.flat{color:#59667a}
+.infra-map-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .infra-map-card{background:#fff;border:1px solid #dde7f0;border-radius:22px;padding:18px;box-shadow:var(--shadow)}
-.infra-world-map{display:block;width:100%;height:auto;border:1px solid #e5edf4;border-radius:16px;background:#f8fafc}
-.map-land{fill:#e3eaf1;stroke:#d3dde7;stroke-width:2}
-.map-marker circle{stroke:#fff;stroke-width:3;filter:drop-shadow(0 9px 12px rgba(7,20,39,.18));opacity:.94}
-.map-marker text{font-size:12px;font-weight:900;text-anchor:middle;fill:#fff;pointer-events:none}.map-marker .score-mid text,.map-marker .score-low text{fill:#071427}
+.infra-map-frame{position:relative;overflow:hidden;border:1px solid #e2ebf3;border-radius:18px;background:linear-gradient(180deg,#fbfdff 0%,#f6f9fc 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.infra-world-map{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;background:#f8fafc}
+.infra-map-markers{position:absolute;inset:0;pointer-events:none}
+.map-marker{position:absolute;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:3px solid #fff;border-radius:999px;box-shadow:0 12px 18px rgba(7,20,39,.2),0 2px 5px rgba(7,20,39,.16);font-size:.72rem;font-weight:900;line-height:1;color:#fff;transform:translate(-50%,-50%);pointer-events:auto;cursor:default}
+.map-marker span{pointer-events:none}.map-marker.score-mid,.map-marker.score-low{color:#071427}
 .infra-map-legend{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:14px;color:#59667a;font-size:.9rem;font-weight:700}
 .legend-swatch{width:34px;height:12px;display:inline-block;border-radius:99px}.legend-low{background:#b8d9e8}.legend-mid{background:#51a6c8}.legend-high{background:#173764}
 .infra-country-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
 .infra-country-card{box-shadow:none}.country-card-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:12px}.country-card-top h3{font-size:1.35rem;margin:0;color:#173764}.country-card-block{border-top:1px solid #e2eaf1;padding-top:12px;margin-top:12px}.country-card-block h4,.risk-box h4{margin:0 0 6px;color:#173764}.country-card-block ul,.method-card ul,.infra-source-list{margin:0;padding-left:20px;color:#33455e}.country-card-block li,.method-card li,.infra-source-list li{margin:6px 0}.risk-box{background:#f7f9fb;border:1px solid #dfe8f0;border-radius:14px;padding:14px;margin-top:14px}.risk-box p{color:#33455e}.verdict{border-left:4px solid #33a3db;padding-left:12px;margin-top:14px!important;color:#0d1726!important}
 .infra-method-grid{align-items:start}.infra-methodology-list{display:grid;gap:14px}.method-card{background:#fff;border:1px solid #dde7f0;border-radius:18px;padding:20px}.method-card-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.method-card h3{margin:0;color:#173764}.method-card strong{color:#173764;white-space:nowrap}.reverse-note{margin:8px 0 10px!important;color:#9f5a00!important;font-weight:800}.infra-card-title{font-size:clamp(1.65rem,3vw,2.4rem)}
-@media (max-width:900px){.infra-section-header{align-items:flex-start;flex-direction:column}.infra-map-legend{justify-content:flex-start;flex-wrap:wrap}.infra-ranking-table{font-size:.88rem}}
+@media (max-width:900px){.infra-section-header{align-items:flex-start;flex-direction:column}.infra-map-legend{justify-content:flex-start;flex-wrap:wrap}.infra-ranking-table{font-size:.88rem}.map-marker{width:31px;height:31px;border-width:2px;font-size:.62rem;box-shadow:0 8px 13px rgba(7,20,39,.18),0 1px 4px rgba(7,20,39,.14)}}
