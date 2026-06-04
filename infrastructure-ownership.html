@@ -59,6 +59,12 @@
     .index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .index-card{background:#fff;border:1px solid #dde7f0;border-radius:18px;padding:22px}
     .index-card h4{margin:0 0 8px;color:#173764}
+
+    .sovereign-map{position:relative;overflow:hidden;min-height:240px;margin:14px 0 12px;border:1px solid #dbe6f1;border-radius:18px;background:linear-gradient(180deg,#fbfdff 0%,#f3f7fb 100%)}
+    .sovereign-map::before{content:"";position:absolute;inset:12px;background:url("https://upload.wikimedia.org/wikipedia/commons/c/c0/Equirectangular_projection_world_map_without_borders.svg") center/92% auto no-repeat;opacity:.22}
+    .map-bubble{position:absolute;z-index:2;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:#33a3db;color:#fff;font-size:12px;font-weight:800;box-shadow:0 12px 24px rgba(51,163,219,.28),0 0 0 6px rgba(51,163,219,.12)}
+    .map-bubble span{position:absolute;top:44px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#173764;font-size:11px;font-weight:800;background:rgba(255,255,255,.9);border:1px solid #dbe6f1;border-radius:999px;padding:2px 7px}
+    .map-note{margin:0;color:#51637a}
     .cta{background:linear-gradient(135deg,#0b1d36,#173764);color:#fff;border-radius:24px;padding:34px}
     .cta h3{margin:0 0 10px;font-size:1.8rem}
     .cta p{margin:0 0 18px;color:#dce8fb;max-width:760px}
@@ -182,7 +188,14 @@
         </div>
         <div class="index-card">
           <h4>Sovereign AI Infrastructure Map</h4>
-          <p>A structured view of which countries are building real capacity versus narrative-only capability.</p>
+          <div class="sovereign-map" aria-label="World map showing sovereign AI infrastructure score bubbles by country">
+            <div class="map-bubble" style="left:23%;top:29%">88<span>United States</span></div>
+            <div class="map-bubble" style="left:51%;top:22%">79<span>EU</span></div>
+            <div class="map-bubble" style="left:79%;top:31%">83<span>China</span></div>
+            <div class="map-bubble" style="left:72%;top:38%">67<span>India</span></div>
+            <div class="map-bubble" style="left:87%;top:64%">61<span>Australia</span></div>
+          </div>
+          <p class="map-note">Rankings will be updated quarterly using public datasets.</p>
         </div>
       </div>
     </div>
