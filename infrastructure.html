@@ -84,8 +84,13 @@
         <div class="infra-map-card">
           <svg class="infra-world-map" viewBox="0 0 1120 560" role="img" aria-labelledby="infra-map-title infra-map-desc">
             <title id="infra-map-title">World map coloured by AI infrastructure score</title>
-            <desc id="infra-map-desc">Countries in the initial AI Infrastructure Power Index dataset are shaded by total score.</desc>
-            <image href="assets/infrastructure-world-map.svg" width="1120" height="560" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></image>
+            <desc id="infra-map-desc">An SVG world map using Natural Earth country geometry, with score bubbles over the initial AI Infrastructure Power Index countries.</desc>
+            <rect class="map-ocean" width="1120" height="560" rx="16" ry="16"></rect>
+            <g class="map-basemap" aria-hidden="true">
+              <path id="infra-map-land" class="map-land" d=""></path>
+              <path id="infra-map-coastlines" class="map-coastlines" d=""></path>
+              <path id="infra-map-borders" class="map-borders" d=""></path>
+            </g>
             <g id="infra-map-markers"></g>
           </svg>
           <div class="infra-map-legend" aria-label="Heat map legend">
@@ -156,8 +161,13 @@
       </div>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script>
     (function () {
+      var WORLD_ATLAS_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+      var MAP_WIDTH = 1120;
+      var MAP_HEIGHT = 560;
       var mapCoordinates = {
         US: [255, 160], CN: [883, 172], AE: [728, 206], SG: [884, 277], FR: [563, 139], GB: [548, 112], CA: [230, 103], AU: [977, 358], JP: [989, 165], DE: [594, 122], KR: [958, 168], SA: [700, 207], IN: [802, 212], NL: [577, 104], IE: [522, 113]
       };
@@ -195,7 +205,38 @@
         }).join('');
       }
 
+      function renderWorldMap() {
+        if (!window.d3 || !window.topojson) return;
+
+        fetch(WORLD_ATLAS_URL)
+          .then(function (response) { return response.json(); })
+          .then(function (topology) {
+            var countries = topology.objects.countries;
+            var projection = d3.geoEquirectangular()
+              .scale(MAP_WIDTH / (2 * Math.PI))
+              .translate([MAP_WIDTH / 2, MAP_HEIGHT / 2])
+              .precision(0.1);
+            var path = d3.geoPath(projection);
+            var land = topojson.feature(topology, countries);
+            land.features = land.features.filter(function (feature) {
+              return feature.properties && feature.properties.name !== 'Antarctica';
+            });
+
+            document.getElementById('infra-map-land').setAttribute('d', path(land));
+            document.getElementById('infra-map-coastlines').setAttribute('d', path(topojson.mesh(topology, countries, function (a, b) {
+              return !b && a.properties.name !== 'Antarctica';
+            })));
+            document.getElementById('infra-map-borders').setAttribute('d', path(topojson.mesh(topology, countries, function (a, b) {
+              return !!b && a !== b && a.properties.name !== 'Antarctica' && b.properties.name !== 'Antarctica';
+            })));
+          })
+          .catch(function () {
+            document.getElementById('infra-map-land').setAttribute('aria-label', 'World map geometry could not be loaded.');
+          });
+      }
+
       function renderMap(countries) {
+        renderWorldMap();
         document.getElementById('infra-map-markers').innerHTML = countries.map(function (country) {
           var xy = mapCoordinates[country.code];
           var radius = 10 + (country.totalScore / 100) * 16;
