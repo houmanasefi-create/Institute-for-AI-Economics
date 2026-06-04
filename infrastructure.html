@@ -49,7 +49,7 @@
             <div class="tag">Initial illustrative scores</div>
             <h2 class="section-title">Country ranking</h2>
           </div>
-          <p class="infra-update-note">Rrankings will be updated quarterly using public datasets.</p>
+          <p class="infra-update-note">Rankings will be updated quarterly using public datasets.</p>
         </div>
         <div class="infra-table-wrap" role="region" aria-label="AI Infrastructure Power Index ranking table" tabindex="0">
           <table class="infra-ranking-table">
@@ -85,13 +85,7 @@
           <svg class="infra-world-map" viewBox="0 0 1120 560" role="img" aria-labelledby="infra-map-title infra-map-desc">
             <title id="infra-map-title">World map coloured by AI infrastructure score</title>
             <desc id="infra-map-desc">Countries in the initial AI Infrastructure Power Index dataset are shaded by total score.</desc>
-            <rect width="1120" height="560" fill="#f8fafc"></rect>
-            <path class="map-land" d="M120 160 C170 95 265 95 322 148 C364 187 340 250 286 270 C230 291 176 264 132 228 C96 198 89 178 120 160Z"></path>
-            <path class="map-land" d="M250 310 C315 270 405 292 420 362 C435 430 380 495 315 488 C260 482 215 435 220 382 C223 348 230 326 250 310Z"></path>
-            <path class="map-land" d="M475 120 C560 72 675 98 710 155 C742 208 682 244 590 235 C515 228 450 176 475 120Z"></path>
-            <path class="map-land" d="M520 238 C610 210 728 245 755 330 C780 408 708 468 610 447 C535 431 485 365 500 300 C505 276 510 252 520 238Z"></path>
-            <path class="map-land" d="M720 140 C825 85 990 112 1040 205 C1084 287 1010 355 900 340 C805 327 690 236 720 140Z"></path>
-            <path class="map-land" d="M850 365 C920 332 1005 365 1020 430 C1032 486 976 520 910 500 C858 484 824 400 850 365Z"></path>
+            <image href="assets/infrastructure-world-map.svg" width="1120" height="560" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></image>
             <g id="infra-map-markers"></g>
           </svg>
           <div class="infra-map-legend" aria-label="Heat map legend">
@@ -165,7 +159,7 @@
   <script>
     (function () {
       var mapCoordinates = {
-        US: [225, 205], CN: [850, 238], AE: [670, 290], SG: [810, 355], FR: [542, 205], GB: [510, 176], CA: [225, 130], AU: [890, 435], JP: [960, 245], DE: [560, 184], KR: [920, 235], SA: [660, 315], IN: [760, 315], NL: [545, 176], IE: [494, 180]
+        US: [255, 160], CN: [883, 172], AE: [728, 206], SG: [884, 277], FR: [563, 139], GB: [548, 112], CA: [230, 103], AU: [977, 358], JP: [989, 165], DE: [594, 122], KR: [958, 168], SA: [700, 207], IN: [802, 212], NL: [577, 104], IE: [522, 113]
       };
 
       function scoreClass(score) {
