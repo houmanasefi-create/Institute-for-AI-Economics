@@ -869,6 +869,7 @@ def shared_header():
     <a href="../research.html">Research</a>
     <a href="./index.html">Weekly Briefings</a>
     <a href="../infrastructure.html">Infrastructure</a>
+    <a href="../tools/">Tools</a>
     <a href="../institutions.html">Institutions</a>
     <a href="../distribution.html">Distribution</a>
     <a href="../contact.html">Contact</a>
