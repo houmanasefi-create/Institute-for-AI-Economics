@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Value Operating System | Institute for AI Economics</title>
+  <meta name="description" content="A front-end AI economics control plane for measuring enterprise AI adoption, productivity value, token spend, model efficiency, and maturity." />
+  <link rel="canonical" href="https://www.instituteofaieconomics.org/tools/ai-value-operating-system/" />
+  <meta property="og:title" content="AI Value Operating System | Institute for AI Economics" />
+  <meta property="og:description" content="A control plane for measuring the economics of enterprise AI adoption." />
+  <link rel="stylesheet" href="../../assets/site.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="../../index.html">Institute for<br>AI Economics</a>
+      <a class="btn btn-primary" href="mailto:houman.asefi@gmail.com?subject=AI%20Value%20Operating%20System%20Enquiry">Contact</a>
+    </div>
+  </header>
+
+  <nav class="navband" aria-label="Main navigation">
+    <div class="container navband-inner">
+      <a href="../../index.html">Home</a>
+      <a href="../../research.html">Research</a>
+      <a href="../../weekly-briefings/index.html">Weekly Briefings</a>
+      <a href="../../publications/index.html">Publications</a>
+      <a href="../../infrastructure.html">Infrastructure</a>
+      <a href="../index.html">Tools</a>
+      <a href="../../institutions.html">Institutions</a>
+      <a href="../../distribution.html">Distribution</a>
+      <a href="../../contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main class="tools-detail">
+    <section class="hero tools-hero tools-detail-hero">
+      <div class="container">
+        <div class="eyebrow">AI Value Control Plane</div>
+        <h1>AI Value Operating System</h1>
+        <p>A control plane for measuring the economics of enterprise AI adoption.</p>
+        <div class="tool-hero-panel">
+          <p>Most organisations track AI usage. Very few can prove whether AI is creating economic value. The AI Value Operating System connects adoption, productivity, token spend, model choice, maturity, and business impact into one executive view.</p>
+          <strong>From AI experimentation to AI accountability.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-workbench" aria-labelledby="tool-title">
+      <div class="container">
+        <div class="tool-workbench-header">
+          <div>
+            <div class="tag">Interactive MVP</div>
+            <h2 class="section-title" id="tool-title">Enterprise AI value model</h2>
+          </div>
+          <p class="lede">Use representative assumptions only. Calculations update automatically in the browser and do not leave this page.</p>
+        </div>
+
+        <div class="tool-layout">
+          <form class="tool-inputs" id="avos-form">
+            <fieldset>
+              <legend>Organisation profile</legend>
+              <label>Number of employees <input type="number" id="employees" min="0" step="100" value="5000" /></label>
+              <label>Average fully loaded annual cost per employee <input type="number" id="annualCost" min="0" step="1000" value="120000" /></label>
+              <label>Percentage of workforce actively using AI <input type="number" id="adoptionRate" min="0" max="100" step="1" value="35" /></label>
+              <label>Average AI sessions per active user per month <input type="number" id="sessionsPerUser" min="0" step="1" value="30" /></label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Productivity assumptions</legend>
+              <label>Average minutes saved per AI session <input type="number" id="minutesSaved" min="0" step="1" value="12" /></label>
+              <label>Percentage of AI outputs accepted or reused <input type="number" id="acceptanceRate" min="0" max="100" step="1" value="65" /></label>
+              <label>Estimated automation potential percentage <input type="number" id="automationPotential" min="0" max="100" step="1" value="25" /></label>
+            </fieldset>
+
+            <fieldset>
+              <legend>AI cost assumptions</legend>
+              <label>Monthly AI platform spend <input type="number" id="platformSpend" min="0" step="1000" value="90000" /></label>
+              <label>Monthly token/API spend <input type="number" id="tokenSpend" min="0" step="1000" value="65000" /></label>
+              <label>Percentage of tasks using frontier models <input type="number" id="frontierUsage" min="0" max="100" step="1" value="60" /></label>
+              <label>Percentage of frontier model usage that could move to smaller models <input type="number" id="smallerModelMove" min="0" max="100" step="1" value="35" /></label>
+              <label>Estimated cost reduction from right-model routing <input type="number" id="routingReduction" min="0" max="100" step="1" value="55" /></label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Maturity assumptions</legend>
+              <label>Current AI maturity level
+                <select id="maturityLevel">
+                  <option value="0">0 = no adoption</option>
+                  <option value="1">1 = basic prompting</option>
+                  <option value="2" selected>2 = workflow assistance</option>
+                  <option value="3">3 = repeatable automation</option>
+                  <option value="4">4 = AI-native operating model</option>
+                </select>
+              </label>
+            </fieldset>
+          </form>
+
+          <aside class="tool-results" aria-live="polite">
+            <div class="value-score-card">
+              <div>
+                <span>AI Value Score</span>
+                <strong id="valueScore">0</strong>
+                <em id="scoreBand">Experimental</em>
+              </div>
+              <div class="score-bar" aria-hidden="true"><span id="scoreBar"></span></div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card"><span>Active AI users</span><strong id="activeUsers">—</strong></div>
+              <div class="kpi-card"><span>Monthly AI sessions</span><strong id="monthlySessions">—</strong></div>
+              <div class="kpi-card"><span>Monthly hours saved</span><strong id="monthlyHours">—</strong></div>
+              <div class="kpi-card"><span>Annual hours unlocked</span><strong id="annualHours">—</strong></div>
+              <div class="kpi-card kpi-wide"><span>Estimated annual productivity value</span><strong id="productivityValue">—</strong></div>
+              <div class="kpi-card"><span>Annual AI cost</span><strong id="annualAiCost">—</strong></div>
+              <div class="kpi-card"><span>ROI multiple</span><strong id="roiMultiple">—</strong></div>
+              <div class="kpi-card kpi-wide"><span>Token optimisation opportunity</span><strong id="tokenOpportunity">—</strong></div>
+              <div class="kpi-card kpi-wide"><span>AI maturity level</span><strong id="maturityOutput">—</strong></div>
+            </div>
+
+            <div class="recommendation-panel">
+              <h3>Executive recommendations</h3>
+              <ul id="recommendations"></ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-soft" aria-labelledby="methodology-title">
+      <div class="container grid-2">
+        <div>
+          <div class="tag">Methodology</div>
+          <h2 class="section-title" id="methodology-title">Methodology</h2>
+        </div>
+        <div class="methodology-copy">
+          <p>This tool estimates the economic value of AI adoption by combining workforce adoption, usage frequency, time saved, output reuse, AI platform cost, token spend, and model efficiency assumptions. It is designed as a strategic model, not a financial audit. The purpose is to help leaders move from AI activity measurement to AI value management.</p>
+          <p><strong>Disclaimer:</strong> This public version uses user-entered assumptions only. It does not connect to internal systems, employee data, or AI platform analytics.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta tool-footer-cta">
+          <h3>Want to use this framework inside your organisation?</h3>
+          <p>Contact the Institute for AI Economics.</p>
+          <a class="btn btn-light" href="mailto:houman.asefi@gmail.com?subject=AI%20Value%20Operating%20System%20Framework">Contact the Institute</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© Institute for AI Economics 2026</div>
+      <div class="footer-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../research.html">Research</a>
+        <a href="../../weekly-briefings/index.html">Weekly Briefings</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var maturityLabels = [
+        '0 = no adoption',
+        '1 = basic prompting',
+        '2 = workflow assistance',
+        '3 = repeatable automation',
+        '4 = AI-native operating model'
+      ];
+
+      function value(id) {
+        return Number(document.getElementById(id).value) || 0;
+      }
+
+      function pct(id) {
+        return Math.max(0, Math.min(100, value(id))) / 100;
+      }
+
+      function formatNumber(number) {
+        return Math.round(number).toLocaleString('en-US');
+      }
+
+      function formatCurrency(number) {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(number);
+      }
+
+      function scoreBand(score) {
+        if (score <= 30) return 'Experimental';
+        if (score <= 60) return 'Emerging';
+        if (score <= 80) return 'Scaling';
+        return 'AI-native';
+      }
+
+      function calculateScore(adoptionRate, sessionsPerUser, acceptanceRate, roiMultiple, maturityLevel, tokenDiscipline) {
+        var adoptionScore = Math.min(adoptionRate / 0.8, 1) * 22;
+        var usageScore = Math.min(sessionsPerUser / 50, 1) * 16;
+        var acceptanceScore = Math.min(acceptanceRate / 0.85, 1) * 18;
+        var roiScore = Math.min(roiMultiple / 5, 1) * 18;
+        var maturityScore = (maturityLevel / 4) * 16;
+        var disciplineScore = Math.min(tokenDiscipline / 0.7, 1) * 10;
+        return Math.max(0, Math.min(100, adoptionScore + usageScore + acceptanceScore + roiScore + maturityScore + disciplineScore));
+      }
+
+      function buildRecommendations(results) {
+        var recommendations = [];
+        if (results.adoptionRate < 0.5) recommendations.push('Increase adoption in high-value functions where time savings can be measured against recurring work.');
+        if (results.frontierUsage > 0.45 && results.smallerModelMove > 0.2) recommendations.push('Move low-complexity tasks away from frontier models and reserve premium models for judgment-heavy workflows.');
+        if (results.tokenOpportunity > 0) recommendations.push('Create model routing rules that match task complexity to the lowest-cost reliable model.');
+        if (results.maturityLevel < 3) recommendations.push('Prioritise repeatable workflows over one-off prompting to make productivity gains auditable.');
+        if (results.acceptanceRate < 0.7) recommendations.push('Improve output quality standards and reuse practices so accepted AI work becomes part of operating routines.');
+        if (results.roiMultiple >= 3) recommendations.push('Build department-level AI value scorecards to scale the strongest use cases with financial discipline.');
+        return recommendations.slice(0, 5);
+      }
+
+      function render() {
+        var employees = value('employees');
+        var annualCost = value('annualCost');
+        var adoptionRate = pct('adoptionRate');
+        var sessionsPerUser = value('sessionsPerUser');
+        var minutesSaved = value('minutesSaved');
+        var acceptanceRate = pct('acceptanceRate');
+        var platformSpend = value('platformSpend');
+        var tokenSpend = value('tokenSpend');
+        var frontierUsage = pct('frontierUsage');
+        var smallerModelMove = pct('smallerModelMove');
+        var routingReduction = pct('routingReduction');
+        var maturityLevel = value('maturityLevel');
+
+        var activeUsers = employees * adoptionRate;
+        var monthlySessions = activeUsers * sessionsPerUser;
+        var monthlyHours = monthlySessions * minutesSaved * acceptanceRate / 60;
+        var annualHours = monthlyHours * 12;
+        var hourlyCost = annualCost / 2080;
+        var productivityValue = annualHours * hourlyCost;
+        var annualAiCost = (platformSpend + tokenSpend) * 12;
+        var roiMultiple = annualAiCost > 0 ? productivityValue / annualAiCost : 0;
+        var tokenOpportunity = tokenSpend * frontierUsage * smallerModelMove * routingReduction * 12;
+        var tokenDiscipline = frontierUsage > 0 ? smallerModelMove * routingReduction : 0;
+        var aiScore = Math.round(calculateScore(adoptionRate, sessionsPerUser, acceptanceRate, roiMultiple, maturityLevel, tokenDiscipline));
+
+        document.getElementById('activeUsers').textContent = formatNumber(activeUsers);
+        document.getElementById('monthlySessions').textContent = formatNumber(monthlySessions);
+        document.getElementById('monthlyHours').textContent = formatNumber(monthlyHours);
+        document.getElementById('annualHours').textContent = formatNumber(annualHours);
+        document.getElementById('productivityValue').textContent = formatCurrency(productivityValue);
+        document.getElementById('annualAiCost').textContent = formatCurrency(annualAiCost);
+        document.getElementById('roiMultiple').textContent = annualAiCost > 0 ? roiMultiple.toFixed(1) + '×' : '—';
+        document.getElementById('tokenOpportunity').textContent = formatCurrency(tokenOpportunity);
+        document.getElementById('maturityOutput').textContent = maturityLabels[maturityLevel];
+        document.getElementById('valueScore').textContent = aiScore;
+        document.getElementById('scoreBand').textContent = scoreBand(aiScore);
+        document.getElementById('scoreBar').style.width = aiScore + '%';
+
+        var recommendations = buildRecommendations({
+          adoptionRate: adoptionRate,
+          frontierUsage: frontierUsage,
+          smallerModelMove: smallerModelMove,
+          tokenOpportunity: tokenOpportunity,
+          maturityLevel: maturityLevel,
+          acceptanceRate: acceptanceRate,
+          roiMultiple: roiMultiple
+        });
+        document.getElementById('recommendations').innerHTML = recommendations.map(function (recommendation) {
+          return '<li>' + recommendation + '</li>';
+        }).join('');
+      }
+
+      document.getElementById('avos-form').addEventListener('input', render);
+      render();
+    }());
+  </script>
+</body>
+</html>
