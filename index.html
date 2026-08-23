@@ -8,165 +8,10 @@
   <link rel="canonical" href="https://www.instituteofaieconomics.org/" />
   <meta property="og:title" content="Institute for AI Economics | AI Economy Research" />
   <meta property="og:description" content="An agentic think tank for AI economics, compute, energy, institutions, governance, power, distribution, and enterprise adoption." />
-  <style>
-    :root {
-      --navy:#071427;
-      --navy-2:#0f2342;
-      --ink:#0d1726;
-      --blue:#33a3db;
-      --blue-2:#51b6ea;
-      --line:#d7e1ea;
-      --muted:#59667a;
-      --bg:#f5f7fa;
-      --white:#ffffff;
-      --max:1400px;
-      --shadow:0 25px 70px rgba(7,20,39,.18);
-    }
-     .track{
-    display:block;
-    text-decoration:none;
-    background:#fff;
-    color:#112440;
-    border-radius:18px;
-    padding:24px;
-    box-shadow:var(--shadow);
-    transition:.2s ease;
-  }
-  .track:hover{
-    transform:translateY(-4px);
-    box-shadow:0 28px 75px rgba(7,20,39,.22);
-  }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff;line-height:1.55}
-    a{text-decoration:none;color:inherit}
-    .container{width:min(var(--max),calc(100% - 56px));margin:0 auto}
-
-    .topbar{background:#fff;border-bottom:1px solid #e7edf3}
-    .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:24px}
-    .logo{display:flex;align-items:center;gap:16px}
-    .logo-mark{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#9ed7ff 0,#3778b8 42%,#163d6d 70%,#0c203c 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-    .logo-word{font-size:19px;line-height:1.02;letter-spacing:.02em;color:#173764;font-weight:600;text-transform:uppercase}
-    .top-actions{display:flex;align-items:center;gap:16px}
-    .lang{border:1px solid #d6e2ec;border-radius:12px;padding:12px 14px;font-size:14px;color:#27415f;background:#fff}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:10px;font-weight:700;transition:.2s ease}
-    .btn-primary{background:var(--blue);color:#fff}
-    .btn-primary:hover{background:#2798d2}
-    .btn-light{background:#fff;color:#173764;border:1px solid #d6e2ec}
-
-    .navband{background:#edf2f7;border-bottom:1px solid #dfe7ef}
-    .navband-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0}
-    .nav-left,.nav-right{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
-    .navband a{font-size:15px;color:#33455e}
-    .navband a:hover{color:#0f2342}
-
-    .hero{position:relative;min-height:680px;background:linear-gradient(rgba(7,20,39,.50),rgba(7,20,39,.60)),url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;color:#fff;display:flex;align-items:stretch}
-    .hero-inner{display:grid;grid-template-rows:1fr auto;min-height:680px}
-    .hero-copy{padding:110px 0 80px;max-width:980px}
-    .hero h1{font-size:clamp(3rem,6vw,5.2rem);line-height:1.02;letter-spacing:-.04em;margin:0 0 20px;font-weight:600}
-    .hero-line{width:260px;height:5px;background:var(--blue);margin:26px 0 30px}
-    .hero p{font-size:clamp(1.2rem,2vw,2rem);max-width:1180px;color:#eef5ff;margin:0}
-
-    .insights-strip{background:rgba(7,20,39,.52);backdrop-filter:blur(4px);border-top:1px solid rgba(255,255,255,.12)}
-    .insights-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:28px;padding:26px 0;align-items:center}
-    .insight-item{color:#fff;font-size:15px;line-height:1.4;padding-right:20px;border-right:1px solid rgba(255,255,255,.26)}
-    .insight-item:last-child{border-right:none;padding-right:0}
-    .insight-label{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);font-weight:700;margin-bottom:8px}
-
-    section{padding:90px 0}
-    .section-plain{background:#fff}
-    .section-soft{background:#f6f8fb}
-    .section-title{font-size:clamp(2.4rem,4vw,4.2rem);line-height:1.06;letter-spacing:-.04em;margin:0 0 24px;font-weight:500}
-    .eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:6px 12px;margin-bottom:16px}
-    .muted{color:var(--muted)}
-
-    .two-col{display:grid;grid-template-columns:1.05fr 1.35fr;gap:64px;align-items:start}
-    .lead-copy p{font-size:1.15rem;color:#27364b;max-width:720px}
-    .lead-copy .cta{margin-top:22px}
-
-    .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .mini-card{position:relative;min-height:160px;border-radius:6px;overflow:hidden;background:linear-gradient(rgba(23,55,100,.18),rgba(18,46,85,.78)),url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80') center/cover;box-shadow:var(--shadow)}
-    .mini-card:nth-child(2){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(3){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(4){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(5){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(6){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(7){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(8){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(9){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(10){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(11){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card:nth-child(12){background:linear-gradient(rgba(23,55,100,.15),rgba(18,46,85,.74)),url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80') center/cover}
-    .mini-card span{position:absolute;left:18px;right:18px;bottom:16px;color:#fff;font-weight:600;font-size:1rem;line-height:1.25}
-    .mini-card .arrow{position:absolute;top:14px;right:14px;font-size:28px;color:#fff;font-weight:300}
-
-    .north-star{background:linear-gradient(135deg,#0b1d36,#173764);color:#fff}
-    .north-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
-    .north-panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:28px 30px}
-    .north-panel h3{margin:0 0 12px;font-size:1.6rem}
-    .research-tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
-    .track{background:#fff;color:#112440;border-radius:18px;padding:24px;box-shadow:var(--shadow)}
-    .track-num{display:inline-block;color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
-    .track h4{margin:0 0 10px;font-size:1.4rem;line-height:1.15}
-    .track p{margin:0;color:#42516a}
-
-    .team-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px}
-    .profile-card,.faq-card,.policy-card{background:#fff;border:1px solid #dde7f0;border-radius:24px;padding:28px;box-shadow:0 12px 35px rgba(12,26,50,.06)}
-    .quote{font-size:1.3rem;line-height:1.5;color:#19365f}
-    .agent-list{display:grid;gap:16px}
-    .agent{padding:18px 20px;border-radius:16px;background:#f4f8fc;border:1px solid #d9e6f2}
-    .agent strong{display:block;color:#173764;margin-bottom:6px}
-
-    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .faq-item{padding:22px;border-radius:18px;background:#fff;border:1px solid #dde7f0}
-    .faq-item h4{margin:0 0 10px;font-size:1.15rem;color:#173764}
-    .faq-item p{margin:0;color:#506179}
-
-    .policy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .policy-card h4{margin:0 0 10px;font-size:1.15rem;color:#173764}
-    .policy-card p{margin:0;color:#54657c}
-
-    footer{background:#f4f5f7;border-top:1px solid #e0e6ec;padding:58px 0 42px}
-    .footer-grid{display:grid;grid-template-columns:1.15fr .95fr .9fr .95fr;gap:60px}
-    .footer-logo{display:flex;align-items:center;gap:14px;margin-bottom:26px}
-    .socials{display:flex;gap:14px;margin:18px 0 28px}
-    .social{
-      width:40px;
-      height:40px;
-      border-radius:10px;
-      background:#e5ebf3;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#173764;
-      font-weight:700;
-      transition:.2s ease;
-    }
-    .social:hover{background:#d7e5f2;transform:translateY(-1px)}
-    .footer-col h4{margin:0 0 18px;font-size:1.1rem;font-weight:500}
-    .footer-links{display:grid;gap:16px;color:#344a67}
-    .footer-links a:hover{color:#173764}
-    .copyright{color:#51637a;font-size:14px}
-
-    @media (max-width:1200px){
-      .insights-grid,.two-col,.north-grid,.team-grid,.footer-grid,.faq-grid,.policy-grid{grid-template-columns:1fr}
-      .research-tracks,.card-grid{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:760px){
-      .container{width:min(var(--max),calc(100% - 28px))}
-      .topbar-inner,.navband-inner{flex-direction:column;align-items:flex-start}
-      .nav-left,.nav-right{gap:18px}
-      .hero{min-height:auto}
-      .hero-inner{min-height:auto}
-      .hero-copy{padding:72px 0 54px}
-      .card-grid,.research-tracks{grid-template-columns:1fr}
-      .insights-grid{gap:16px}
-      .insight-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:16px}
-      .insight-item:last-child{border-bottom:none}
-    }
-  </style>
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
+  <div class="announcement"><span>New research</span> Mapping the infrastructure of the agentic economy <a href="research.html">Explore the work →</a></div>
   <header>
     <div class="topbar">
       <div class="container topbar-inner">
@@ -185,7 +30,6 @@
         <div class="nav-left">
           <a href="index.html">Home</a>
           <a href="research.html">Research</a>
-          <a href="./weekly-briefings/index.html">Weekly Briefings</a>
           <a href="publications/index.html">Publications</a>
           <a href="infrastructure.html">Infrastructure</a>
           <a href="/enterprise-ai-economics">Enterprise AI Economics</a>
@@ -199,11 +43,10 @@
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <h1>An agentic think tank for the AI economy.</h1>
-          <div class="hero-line"></div>
-          <p>
-            We research how AI agents, intelligence infrastructure, and institutions reshape economic power, and why some nations, firms, and systems will compound while others will be subordinated.
-          </p>
+          <div class="eyebrow">Independent economic research</div>
+          <h1>The economy is <em>becoming agentic.</em></h1>
+          <p>We study how intelligence infrastructure, institutions, and AI agents are redistributing economic power—and who is positioned to capture it.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="research.html">Explore our research <span>↗</span></a><a class="action-link" href="publications/index.html">View publications →</a></div>
         </div>
 
         <div class="insights-strip">
@@ -291,18 +134,6 @@
     <h4>Distribution & Value Capture</h4>
     <p>Mapping how value is captured in the AI stack: interfaces, workflows, trust layers, channels, and the economic leverage of distribution in an agentic economy.</p>
   </a>
-
-          <a class="track" href="./weekly-briefings/index.html">
-            <div class="track-num">Weekly</div>
-            <h4>Weekly Briefings</h4>
-            <p>Tracking AI economy research, infrastructure signals, energy demand, governance, compute, chips, enterprise adoption, and strategic disagreements.</p>
-          </a>
-
-          <a class="track" href="./weekly-briefings/index.html">
-            <div class="track-num">Report 001</div>
-            <h4>Compute, Energy, and Institutional Power</h4>
-            <p>The first sample briefing on AI infrastructure constraints, sovereign capability, institutional adoption, chips, and power.</p>
-          </a>
 </div>
           
     </section>
@@ -448,7 +279,7 @@
           <a href="mailto:houman.asefi@gmail.com?subject=Institute%20for%20AI%20Economics%20Enquiry">Contact Us</a>
           <a href="mailto:houman.asefi@gmail.com?subject=Research%20Enquiry%20-%20Institute%20for%20AI%20Economics">Research Enquiries</a>
           <a href="mailto:houman.asefi@gmail.com?subject=Agent%20Contribution%20-%20Institute%20for%20AI%20Economics">Agent Contributions</a>
-          <a href="mailto:houman.asefi@gmail.com?subject=Sponsor%20a%20Briefing%20-%20Institute%20for%20AI%20Economics">Sponsor a Briefing</a>
+          <a href="mailto:houman.asefi@gmail.com?subject=Research%20Collaboration%20-%20Institute%20for%20AI%20Economics">Research Collaboration</a>
         </div>
       </div>
       <div class="footer-col">
